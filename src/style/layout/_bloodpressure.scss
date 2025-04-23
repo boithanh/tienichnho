@@ -1,0 +1,138 @@
+@use "./../helper/variable" as *;
+
+body .blood-pressure {
+    font-family: $font_1;
+    background: linear-gradient(to top, #a18cd1, #fbc2eb);
+
+    h1 {
+        font-family: "Pacifico", cursive;
+        font-weight: 400;
+        font-style: normal;
+        -moz-user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+
+    .myShadow {
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+        padding: 15px 20px;
+        margin-bottom: 30px;
+        background-color: rgba(255, 158, 193, 0.4);
+        background-image: url("https://www.transparenttextures.com/patterns/light-wool.png");
+        // background-image: url("https://www.transparenttextures.com/patterns/woven-light.png");
+        border-radius: 4px;
+        border-bottom-left-radius: 30px;
+
+        p {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            font-weight: 500;
+
+            @media screen and (max-width:532px) {
+                font-size: 15px;
+            }
+
+            @media screen and (max-width:292px) {
+                display: block;
+                text-align: center;
+            }
+        }
+
+        i {
+            line-height: 12px;
+
+            @media screen and (max-width:292px) {
+                display: block;
+                text-align: center;
+            }
+        }
+    }
+
+    .note {
+        p {
+            font-size: 10px;
+        }
+    }
+
+    .form-control {
+        &::placeholder {
+            color: red;
+            font-size: 13px;
+            padding-left: 0;
+            transition: .5s all;
+        }
+
+        &:focus {
+            outline: none;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            border: 1px solid #dee2e6;
+
+            &::placeholder {
+                padding-left: 15px;
+            }
+        }
+
+
+    }
+
+    .form-container {
+        border: 1px solid black;
+        z-index: 1;
+        padding: 40px 80px;
+        border-top-left-radius: 50px;
+        border-bottom-right-radius: 15px;
+        margin-bottom: 30px;
+        position: relative;
+        transition: 0.1s ease-in-out;
+        -moz-user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+        &:hover {
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        }
+
+        @media screen and (max-width: 532px) {
+            padding: 40px 40px;
+        }
+
+        @media screen and (max-width: 450px) {
+            padding: 40px 25px;
+        }
+    }
+
+    .glass-morphism {
+        background: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .square {
+        position: absolute;
+        border-radius: 5px;
+        transition: transform 0.3s ease-in-out;
+        -moz-user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+        &:hover {
+            transform: translate(100%);
+        }
+    }
+}

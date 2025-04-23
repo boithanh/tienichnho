@@ -1,0 +1,7 @@
+@use "./../helper/variable" as *;
+
+.card-body {
+    p {
+        line-height: 0;
+    }
+}
