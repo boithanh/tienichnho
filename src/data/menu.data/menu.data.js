@@ -28,5 +28,9 @@ export const arrNavlink = [
     {
         to: path.randomMegaCustom,
         content: "Random Mega Custom"
+    },
+    {
+        to: path.soThienThan,
+        content: "Số thiên thần"
     }
 ]

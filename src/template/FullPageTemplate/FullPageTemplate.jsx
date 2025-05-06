@@ -23,6 +23,8 @@ const FullPageTemplate = () => {
                 return "Trò chơi lắc xí ngầu"
             case alias === "Random Mega Custom":
                 return "Random 6/45 custom"
+            case alias === "Số thiên thần":
+                return "Angel Numbers"
             default:
                 return "Page Not Found"
         }

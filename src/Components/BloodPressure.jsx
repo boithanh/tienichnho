@@ -112,7 +112,6 @@ const BloodPressure = () => {
             BloodPressureCheck(values);
             heartRateCheck(values);
             setIcon(true);
-            resetForm();
         },
         validationSchema: yup.object({
             tamThu: yup.string().required("Vui lòng không bỏ trống Tâm Thu").matches(/^(?:[5-9][1-9]|1\d{2})$/, "Vui lòng nhập số và phải hợp lệ [51-199]"),
@@ -131,7 +130,7 @@ const BloodPressure = () => {
                     <Link to="/" className="hover:underline">Trang chủ</Link> / Blood Pressure
                 </div>
             </div>
-            <div className='container-fluid blood-pressure'>
+            <div className='container-fluid blood-pressure position-relative'>
                 <div className="row">
                     <h1 className='fs-10 mb-4 p-2 text-center my-3 z-2'>Kiểm tra thông số huyết áp</h1>
                     <div className='col-xl-5 mx-auto'>
@@ -143,8 +142,13 @@ const BloodPressure = () => {
 
                                 <InputCustom labelContent={"Nhập nhịp tim"} smallContent={"Nhịp tim đo được của thiết bị đo"} id={"nhipTim"} name={"nhipTim"} onChange={handleChange} value={values.nhipTim} onBlur={handleBlur} error={errors.nhipTim} touched={touched.nhipTim} />
 
-                                <div className='text-center mb-4'><button type='submit' className='btn btn-outline-dark w-100'>Kiểm tra</button></div>
-                                <div className='myShadow'>
+                                <div className='text-center mb-4 d-flex justify-content-evenly align-items-center gap-2'>
+                                    <button type='submit' className='btn btn-outline-dark w-50 d-sm-inline-block mx-sm-2 mb-3'>Kiểm tra</button>
+                                    <button type='button' className='btn btn-outline-light w-50 d-sm-inline-block mb-3' onClick={() => {
+                                        resetForm();
+                                    }}>Reset</button>
+                                </div>
+                                <div className={`myShadow ${!icon ? "d-none " : "d-block "}`}>
                                     <h5 className='p-2'>Chẩn đoán</h5>
                                     <div className='pb-5'>
                                         <p className='mb-3'><i className={`${!icon ? "d-none " : "d-block "}fa-solid fa-droplet text-warning fs-3 mx-3`}></i>{valueBlood}</p>
@@ -159,7 +163,7 @@ const BloodPressure = () => {
                         </div>
                     </div>
                 </div>
-                <div className='random-square' ref={containerRef}></div>
+                {/* <div className='random-square' ref={containerRef}></div> */}
             </div>
         </>
     )

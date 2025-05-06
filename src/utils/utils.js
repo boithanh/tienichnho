@@ -41,7 +41,7 @@ export default function createRandomSquares(count) {
         let backgroundOpacity = Math.random() * 0.5 + 0.2; // Độ trong suốt của background
 
         return `
-            <div class="square"
+            <div className="square"
                 style="
                     width: ${size}px;
                     height: ${size}px;

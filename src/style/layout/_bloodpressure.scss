@@ -3,6 +3,8 @@
 body .blood-pressure {
     font-family: $font_1;
     background: linear-gradient(to top, #a18cd1, #fbc2eb);
+    background-size: cover;
+    min-height: 100vh;
 
     h1 {
         font-family: "Pacifico", cursive;
@@ -23,7 +25,7 @@ body .blood-pressure {
         padding: 15px 20px;
         margin-bottom: 30px;
         background-color: rgba(255, 158, 193, 0.4);
-        background-image: url("https://www.transparenttextures.com/patterns/light-wool.png");
+        // background-image: url("https://www.transparenttextures.com/patterns/light-wool.png");
         // background-image: url("https://www.transparenttextures.com/patterns/woven-light.png");
         border-radius: 4px;
         border-bottom-left-radius: 30px;
@@ -117,6 +119,11 @@ body .blood-pressure {
         backdrop-filter: blur(5px);
         -webkit-backdrop-filter: blur(5px);
         border: 1px solid rgba(255, 255, 255, 0.3);
+        min-height: 800px;
+
+        @media screen and (max-width:431px) {
+            min-height: 700px;
+        }
     }
 
     .square {

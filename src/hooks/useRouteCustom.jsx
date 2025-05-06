@@ -13,6 +13,7 @@ import Carousel from '../Components/Carousel'
 import LacXiNgau from '../Components/LacXiNgau'
 import FullPageTemplate from '../template/FullPageTemplate/FullPageTemplate'
 import MegaRandomCustom from '../Components/MegaRandomCustom'
+import SoThienThan from '../Components/SoThienThan'
 
 const useRouteCustom = () => {
 
@@ -41,10 +42,13 @@ const useRouteCustom = () => {
             path: path.bloodPressure,
             element: <Suspense fallback={<Skeleton active paragraph={{ rows: 30 }} />}><BloodPressure /></Suspense>
         },
-        ,
         {
             path: path.randomMegaCustom,
             element: <MegaRandomCustom />
+        },
+        {
+            path: path.soThienThan,
+            element: <SoThienThan />
         },
         {
             path: "*",
