@@ -5,6 +5,7 @@ import InputCustom from './../hooks/InputCustom'
 import * as yup from 'yup'
 import { Link } from 'react-router-dom'
 import { path } from '../common/path'
+import useResponsive from '../hooks/useResponsive'
 
 const BloodPressure = () => {
     const [value, setValue] = useState("");
@@ -13,7 +14,10 @@ const BloodPressure = () => {
     const [hieuAp, setHieuAp] = useState("");
     const [icon, setIcon] = useState(false);
     const containerRef = useRef(null); // Tạo ref cho div chứa HTML
-
+    const isReponsive = useResponsive({
+        mobile: 576,
+        tablets: 768
+    })
 
     useEffect(() => {
         if (containerRef.current) {
@@ -163,7 +167,7 @@ const BloodPressure = () => {
                         </div>
                     </div>
                 </div>
-                {/* <div className='random-square' ref={containerRef}></div> */}
+                <div className='random-square' ref={containerRef}></div>
             </div>
         </>
     )

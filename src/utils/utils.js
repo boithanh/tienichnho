@@ -31,30 +31,32 @@ export const defaultLottery = () => {
 
 export default function createRandomSquares(count) {
     const htmlArr = Array.from({ length: count }).map((_, i) => {
-        let size = Math.random() * 50 + 30; // Kích thước từ 30px - 80px
-        let x = Math.random() * window.innerWidth;
-        let y = Math.random() * window.innerHeight;
+        let size = Math.floor(Math.random() * 50 + 30); // Kích thước từ 30px - 80px
+        let widthSize = window.innerWidth;
+        let heightSize = window.innerHeight;
+        let x = Math.floor(Math.random() * widthSize);
+        let y = Math.floor(Math.random() * heightSize);
 
-        let borderRadius = Math.random() * 30; // Bo góc từ 0 - 30px
-        let blurAmount = Math.random() * 10 + 2; // Độ mờ từ 2px - 12px
-        let shadowOpacity = Math.random() * 0.5 + 0.1; // Độ trong suốt của box-shadow
+        let borderRadius = Math.floor(Math.random() * 30); // Bo góc từ 0 - 30px
+        let blurAmount = Math.floor(Math.random() * 10 + 2); // Độ mờ từ 2px - 12px
+        let shadowOpacity = Math.floor(Math.random() * 0.5 + 0.1); // Độ trong suốt của box-shadow
         let backgroundOpacity = Math.random() * 0.5 + 0.2; // Độ trong suốt của background
 
         return `
-            <div className="square"
-                style="
-                    width: ${size}px;
-                    height: ${size}px;
-                    left: ${x}px;
-                    top: ${y}px;
-                    background: rgba(255, 255, 255, ${backgroundOpacity});
-                    border-radius: ${borderRadius}px;
-                    box-shadow: 0 4px 30px rgba(0, 0, 0, ${shadowOpacity});
-                    backdrop-filter: blur(${blurAmount}px);
-                    border: 1px solid rgba(255, 255, 255, 0.3);
-                    position: absolute;
-                ">
-            </div>`;
+                <div className="square"
+                    style="
+                        width: ${size}px;
+                        height: ${size}px;
+                        left: calc(${widthSize}px - ${x}px - ${size}px);
+                        top: calc(${heightSize}px - ${y}px - ${size}px);
+                        background: rgba(255, 255, 255, ${backgroundOpacity});
+                        border-radius: ${borderRadius}px;
+                        box-shadow: 0 4px 30px rgba(0, 0, 0, ${shadowOpacity});
+                        backdrop-filter: blur(${blurAmount}px);
+                        border: 1px solid rgba(255, 255, 255, 0.3);
+                        position: absolute;
+                    ">
+                </div>`;
     });
 
     return htmlArr.join(""); // Trả về string HTML

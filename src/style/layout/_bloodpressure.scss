@@ -17,6 +17,11 @@ body .blood-pressure {
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+        font-size: 3rem;
+
+        @media screen and (max-width:431px) {
+            font-size: 2rem;
+        }
     }
 
 
