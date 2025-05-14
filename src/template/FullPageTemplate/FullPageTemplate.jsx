@@ -12,14 +12,14 @@ const FullPageTemplate = () => {
         try {
             return axios({
                 method: 'post',
-                url: 'http://colormind.io/api/',
+                url: 'https://colomind-server-workers.boithanh01694.workers.dev/api/colors', //Do colomind ko có https ko gọi trực tiếp để fetch API đc nên phải gọi trung gian qua worker 
                 data: '{ "model": "default" }'
             }).then((res) => res.data.result).catch((err) => {
                 // console.log("Có gì đó không ổn xảy ra, vui lòng thử lại", err);
                 return [[0, 0, 0], [255, 255, 255]];
             })
         } catch (err) {
-            // console.log("err with technical");
+            console.log("err with technical");
         }
     }
     const fetchManyPair = async () => {
@@ -34,7 +34,7 @@ const FullPageTemplate = () => {
                 setColors(res);
                 setShouldApplyStyle(true); // Cho phép apply CSS
             }).catch((err) => {
-                // console.log(err);
+                console.log(err);
             });
         }
     }
