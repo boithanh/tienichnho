@@ -1,18 +1,21 @@
 import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { generateRandomNumbers } from '../utils/utils';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const MegaRandom = () => {
     const [numbers, setNumbers] = useState([]);
     const [animate, setAnimate] = useState(false);
     return (
         <>
-            <div className='position-absolute z-3'>
-                <div className="text-sm text-gray-500">
-                    <Link to="/" className="hover:underline">Trang chủ</Link> / 6/45 Random
-                </div>
-            </div>
+            <nav className="breadcrumb z-3 w-100">
+                <NavLink to="/" className={({ isActive, isPending }) => {
+                    return "breadcrumb-item " + (isActive ? "active" : "") + (isPending ? "pending" : "")
+                }} aria-current="page">Trang Chủ</NavLink>
+                <NavLink to="/random-mega" className={({ isActive, isPending }) => {
+                    return "breadcrumb-item " + (isActive ? "active" : "") + (isPending ? "pending" : "")
+                }} aria-current="page">6/45 Random</NavLink>
+            </nav>
             <div className="container">
                 <div className="row">
                     <div className="col-xl-12">

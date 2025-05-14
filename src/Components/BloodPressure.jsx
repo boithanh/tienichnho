@@ -1,27 +1,27 @@
 import { useFormik } from 'formik'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import createRandomSquares from './../utils/utils'
 import InputCustom from './../hooks/InputCustom'
 import * as yup from 'yup'
-import { Link } from 'react-router-dom'
-import { path } from '../common/path'
-import useResponsive from '../hooks/useResponsive'
+import { Nav } from 'react-bootstrap'
+import { NavLink } from 'react-router-dom'
+
+// import useResponsive from '../hooks/useResponsive'
 
 const BloodPressure = () => {
     const [value, setValue] = useState("");
     const [valueBlood, setValueBlood] = useState("");
-    const [squares, setSquares] = useState([]);
     const [hieuAp, setHieuAp] = useState("");
     const [icon, setIcon] = useState(false);
     const containerRef = useRef(null); // Tạo ref cho div chứa HTML
-    const isReponsive = useResponsive({
-        mobile: 576,
-        tablets: 768
-    })
+    // const isReponsive = useResponsive({
+    //     mobile: 576,
+    //     tablets: 768
+    // })
 
     useEffect(() => {
         if (containerRef.current) {
-            containerRef.current.innerHTML = createRandomSquares(10); // Thêm HTML vào DOM
+            containerRef.current.innerHTML = createRandomSquares(15); // Thêm HTML vào DOM
         }
     }, []); // Dependency array rỗng -> không chạy lại khi nhập input
 
@@ -124,19 +124,20 @@ const BloodPressure = () => {
         })
 
     });
-
-    // console.log(errors);
-    // console.log(touched);
     return (
         <>
-            <div className='position-absolute z-3'>
-                <div className="text-sm text-gray-500">
-                    <Link to="/" className="hover:underline">Trang chủ</Link> / Blood Pressure
-                </div>
-            </div>
+            <nav className="breadcrumb z-3 w-100">
+                <NavLink to="/" className={({ isActive, isPending }) => {
+                    return "breadcrumb-item " + (isActive ? "active" : "") + (isPending ? "pending" : "")
+                }} aria-current="page">Trang Chủ</NavLink>
+                <NavLink to="/blood-pressure" className={({ isActive, isPending }) => {
+                    return "breadcrumb-item " + (isActive ? "active" : "") + (isPending ? "pending" : "")
+                }} aria-current="page">Blood Pressure</NavLink>
+            </nav>
+
             <div className='container-fluid blood-pressure position-relative'>
                 <div className="row">
-                    <h1 className='fs-10 mb-4 p-2 text-center my-3 z-2'>Kiểm tra thông số huyết áp</h1>
+                    <h1 className='fs-10 mb-4 p-2 text-center mt-5 z-2'>Kiểm tra thông số huyết áp</h1>
                     <div className='col-xl-5 mx-auto'>
                         <div className='form-container glass-morphism'>
                             <form onSubmit={handleSubmit}>

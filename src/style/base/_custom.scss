@@ -1,0 +1,22 @@
+.breadcrumb {
+    background-color: rgba(80, 65, 54, 0.8);
+    padding: 10px;
+    margin-bottom: 0;
+    position: relative;
+
+
+    .breadcrumb-item {
+        color: white !important;
+        text-decoration: none;
+
+        &.active {
+            color: #7F949A !important;
+            pointer-events: none;
+
+        }
+
+        &::before {
+            color: #7F949A !important;
+        }
+    }
+}

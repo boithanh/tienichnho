@@ -1,12 +1,12 @@
 import ReactFullpage from '@fullpage/react-fullpage';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useState } from 'react'
 import { arrNavlink } from '../../data/data';
 import { removeVietnameseTones } from '../../utils/utils';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 const FullPageTemplate = () => {
     const [colors, setColors] = useState([]);
-    const [buttonColor, setButtonColor] = useState(false);
+    const [shouldApplyStyle, setShouldApplyStyle] = useState(false);
 
     const fetchOnePair = () => {
         try {
@@ -27,19 +27,30 @@ const FullPageTemplate = () => {
         const results = await Promise.all(promises);
         return results;
     }
-    useEffect(() => {
-        fetchManyPair().then((res) => {
-            setColors(res);
-            if (!colors) return; // tránh chạy khi chưa có màu
-            // console.log(colors);
-            let flag = false;
-            const toRgb = ([r, g, b]) => `rgb(${r}, ${g}, ${b})`;
-            const indexBgColor1 = 4;
-            const indexBgColor2 = 3;
-            const indexTextColor = 0;
-            const indexButton1 = 1;
-            const indexButton2 = 2;
-            const style = document.createElement('style');
+    useLayoutEffect(() => {
+        const isReload = window.performance?.getEntriesByType("navigation")[0]?.type === "reload";
+        if (isReload || colors.length === 0) {
+            fetchManyPair().then((res) => {
+                setColors(res);
+                setShouldApplyStyle(true); // Cho phép apply CSS
+            }).catch((err) => {
+                // console.log(err);
+            });
+        }
+    }
+        , [])
+
+    useLayoutEffect(() => {
+        if (!shouldApplyStyle || colors.length === 0) return;
+        if (!colors || colors.length === 0) return; // tránh chạy khi chưa có màu
+        const toRgb = ([r, g, b]) => `rgb(${r}, ${g}, ${b})`;
+        const indexBgColor1 = 4;
+        const indexBgColor2 = 3;
+        const indexTextColor = 0;
+        const indexButton1 = 1;
+        const indexButton2 = 2;
+        const style = document.createElement('style');
+        if (colors.length === 8 && colors.every(p => p && p.length)) {
             const cssRules = colors.map((palette, i) => {
                 const bgColor1 = palette[indexBgColor1];
                 const bgColor2 = palette[indexBgColor2];
@@ -47,24 +58,14 @@ const FullPageTemplate = () => {
                 const buttonColor2 = palette[indexButton2]
                 const textColor = palette[indexTextColor];
                 const [r, g, b] = buttonColor2;
-                const [e, f, h] = bgColor1;
                 const isButtonBright = r >= 200 || g >= 200 || b >= 200;
-                const isBackgroundBright = e >= 200 || f >= 200 || h >= 200;
-                setButtonColor(isBackgroundBright);
-                return ` .dynamic-bg${i}{background-image: linear-gradient(128deg, ${toRgb(bgColor1)}, ${toRgb(bgColor2)}) !important} .dynamic-button${i}.btn::before{background-color: ${toRgb(buttonColor1)} !important} .dynamic-button${i}.btn::after{background-color: ${toRgb(buttonColor2)} !important} .dynamic-button${i}.btn{color: ${toRgb(textColor)}} .dynamic-button${i}.btn:hover{color: ${isButtonBright && "black"} !important}`
+                return ` .dynamic-bg${i}{background-image: linear-gradient(128deg, ${toRgb(bgColor1)}, ${toRgb(bgColor2)}) !important;  transition: background 0.5s ease-in-out;} .dynamic-button${i}.btn::before{background-color: ${toRgb(buttonColor1)} !important} .dynamic-button${i}.btn::after{background-color: ${toRgb(buttonColor2)} !important} .dynamic-button${i}.btn{color: ${toRgb(textColor)}} .dynamic-button${i}.btn:hover{color: ${isButtonBright && "black"} !important}`
             })
             style.innerHTML = cssRules.join("\n");
             document.head.appendChild(style);
-            return () => {
-                document.head.removeChild(style);
-            };
-
-        }).catch((err) => {
-            // console.log(err);
-        });
-
-    }
-        , [])
+        }
+        // render ở đây
+    }, [shouldApplyStyle]); // chỉ chạy một lần khi flag được bật
 
     const siteTitle = (alias) => {
         switch (true) {

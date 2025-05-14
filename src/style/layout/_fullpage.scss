@@ -27,37 +27,37 @@ h1 {
 //     }
 // }
 
-// .fp-section:nth-child(1) {
-//     background-image: linear-gradient(128deg, #40afff, #3f61ff);
-// }
+.fp-section:nth-child(1) {
+    background-image: linear-gradient(128deg, #40afff, #3f61ff);
+}
 
-// .fp-section:nth-child(2) {
-//     background-image: linear-gradient(128deg, #ff9a3f, #ff4b40);
-// }
+.fp-section:nth-child(2) {
+    background-image: linear-gradient(128deg, #ff9a3f, #ff4b40);
+}
 
-// .fp-section:nth-child(3) {
-//     background-image: linear-gradient(128deg, #fc40ff, #543fff);
-// }
+.fp-section:nth-child(3) {
+    background-image: linear-gradient(128deg, #fc40ff, #543fff);
+}
 
-// .fp-section:nth-child(4) {
-//     background-image: linear-gradient(128deg, #ff9a9e, #fad0c4);
-// }
+.fp-section:nth-child(4) {
+    background-image: linear-gradient(128deg, #ff9a9e, #fad0c4);
+}
 
-// .fp-section:nth-child(5) {
-//     background-image: linear-gradient(128deg, #FFB330, #FFFCCE);
-// }
+.fp-section:nth-child(5) {
+    background-image: linear-gradient(128deg, #FFB330, #FFFCCE);
+}
 
-// .fp-section:nth-child(6) {
-//     background-image: linear-gradient(128deg, #CBE7E3, #05999E);
-// }
+.fp-section:nth-child(6) {
+    background-image: linear-gradient(128deg, #CBE7E3, #05999E);
+}
 
-// .fp-section:nth-child(7) {
-//     background-image: linear-gradient(128deg, #cd9cf2, #f6f3ff);
-// }
+.fp-section:nth-child(7) {
+    background-image: linear-gradient(128deg, #cd9cf2, #f6f3ff);
+}
 
-// .fp-section:nth-child(8) {
-//     background-image: linear-gradient(128deg, #b8235a, #dbdcd7);
-// }
+.fp-section:nth-child(8) {
+    background-image: linear-gradient(128deg, #b8235a, #dbdcd7);
+}
 
 /* Styling Our Menu */
 #menu {
@@ -67,7 +67,8 @@ h1 {
     height: 40px;
     z-index: 70;
     width: 100%;
-    padding: 0;
+    padding: 20px;
+    ;
     margin: 0;
 }
 
@@ -157,16 +158,25 @@ $cubic-bezier: cubic-bezier(0.68, -0.55, 0.265, 1.55);
         &::before {
             border: 0;
             background-color: $backgroundColor;
-            top: -0.75rem;
-            left: 0.5rem;
+            top: 0;
+            left: 0;
             animation: topAnimation 2s $cubic-bezier 0.25s infinite alternate;
+
+            @media screen and (max-width:431px) {
+                animation: topAnimationMobile 2s $cubic-bezier 0.25s infinite alternate;
+            }
         }
 
         &::after {
             background-color: $foregroundColor;
-            top: 3rem;
-            left: 13rem;
+            bottom: 10px;
+            left: 0;
             animation: bottomAnimation 2s $cubic-bezier 0.5s infinite alternate;
+
+            @media screen and (max-width:431px) {
+                animation: bottomAnimationMobile 2s $cubic-bezier 0.5s infinite alternate;
+
+            }
         }
 
         &:hover {
@@ -197,22 +207,56 @@ $cubic-bezier: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
 @keyframes topAnimation {
     from {
-        transform: translate(0rem, 1.2rem);
+        top: 0;
     }
 
     to {
-        transform: translate(0rem, 5rem);
+        top: calc(100% - 30px);
+
+
+    }
+}
+
+@keyframes topAnimationMobile {
+    from {
+        top: 0;
+    }
+
+    to {
+        top: calc(90% - 30px);
+
+
     }
 }
 
 @keyframes bottomAnimation {
     from {
-        transform: translate(-11.5rem, 1rem);
+        left: 0;
     }
 
     to {
-        transform: translate(0rem, 1rem);
+        left: calc(80% - 30px);
+    }
+}
+
+@keyframes bottomAnimationMobile {
+    from {
+        left: 30px;
+    }
+
+    to {
+        left: calc(90% - 30px);
     }
 }
 
 @include btn__split($colorPrimary, $colorSecondary, $black);
+
+@keyframes background {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}

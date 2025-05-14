@@ -1,19 +1,22 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { array } from 'yup';
 import { thayDoiBanChon } from '../redux/slices/xiNgauSlice';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+
 
 const XiNgau = () => {
     const { xiNgau } = useSelector((state) => state.xiNgauSlice);
     const dispatch = useDispatch();
     return (
         <>
-            <div className='position-absolute z-3 top-0'>
-                <div className="text-sm text-gray-500">
-                    <Link to="/" className="hover:underline">Trang chủ</Link> / 6/45 Random
-                </div>
-            </div>
+            <nav className="breadcrumb z-3 w-100 position-fixed top-0 left-0">
+                <NavLink to="/" className={({ isActive, isPending }) => {
+                    return "breadcrumb-item " + (isActive ? "active" : "") + (isPending ? "pending" : "")
+                }} aria-current="page">Trang Chủ</NavLink>
+                <NavLink to="/lac-xi-ngau" className={({ isActive, isPending }) => {
+                    return "breadcrumb-item " + (isActive ? "active" : "") + (isPending ? "pending" : "")
+                }} aria-current="page">Đổ xúc xắc</NavLink>
+            </nav>
             <div className="container-fluid">
                 <div className="row">
                     <div className="col">

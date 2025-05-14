@@ -5,6 +5,7 @@ body .blood-pressure {
     background: linear-gradient(to top, #a18cd1, #fbc2eb);
     background-size: cover;
     min-height: 100vh;
+    color: #29274C;
 
     h1 {
         font-family: "Pacifico", cursive;
@@ -20,7 +21,7 @@ body .blood-pressure {
         font-size: 3rem;
 
         @media screen and (max-width:431px) {
-            font-size: 2rem;
+            font-size: 1.8rem;
         }
     }
 
