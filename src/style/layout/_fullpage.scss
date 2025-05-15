@@ -8,6 +8,12 @@ h1 {
     margin: 0;
 }
 
+i {
+    transform: translateY(-20px);
+    animation: poo 2s ease-in-out infinite;
+    overflow: hidden;
+}
+
 .section {
     color: #fff;
     text-align: center;
@@ -58,6 +64,7 @@ h1 {
 .fp-section:nth-child(8) {
     background-image: linear-gradient(128deg, #b8235a, #dbdcd7);
 }
+
 
 /* Styling Our Menu */
 #menu {
@@ -248,12 +255,14 @@ $cubic-bezier: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
 @include btn__split($colorPrimary, $colorSecondary, $black);
 
-@keyframes background {
+@keyframes poo {
     from {
+        transform: translateY(-20px);
         opacity: 0;
     }
 
     to {
+        transform: translateY(8px);
         opacity: 1;
     }
 }
