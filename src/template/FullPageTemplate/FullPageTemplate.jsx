@@ -1,14 +1,12 @@
 import ReactFullpage from '@fullpage/react-fullpage';
-import React, { useLayoutEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { arrNavlink } from '../../data/data';
 import { removeVietnameseTones } from '../../utils/utils';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { runtimeFlags } from '../../utils/utils';
 const FullPageTemplate = () => {
     const [colors, setColors] = useState([]);
-    const hasAppliedStyleRef = useRef(false);
-    console.log(hasAppliedStyleRef.current);
-
 
     const fetchOnePair = () => {
         try {
@@ -29,20 +27,19 @@ const FullPageTemplate = () => {
         const results = await Promise.all(promises);
         return results;
     }
-    useLayoutEffect(() => {
-        // const isReload = window.performance?.getEntriesByType("navigation")[0]?.type === "reload";
-        if (hasAppliedStyleRef.current === false) {
-            fetchManyPair().then((res) => {
-                setColors(res);
-                hasAppliedStyleRef.current = true; // Ghi nhớ để lần sau không làm lại
-            }).catch((err) => {
-                console.log(err);
-            });
-        }
+    useEffect(() => {
+        if (runtimeFlags.hasAppliedHomeStyle) return;
+        runtimeFlags.hasAppliedHomeStyle = true;
+        fetchManyPair().then((res) => {
+            setColors(res);
+        }).catch((err) => {
+            console.log(err);
+        });
     }
+
         , [])
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (!colors || colors.length === 0) return; // tránh chạy khi chưa có màu
         const toRgb = ([r, g, b]) => `rgb(${r}, ${g}, ${b})`;
         const indexBgColor1 = 4;
@@ -66,7 +63,7 @@ const FullPageTemplate = () => {
             document.head.appendChild(style);
         }
         // render ở đây
-    }, [hasAppliedStyleRef]); // chỉ chạy một lần khi flag được bật
+    }, [colors]); // chỉ chạy một lần khi flag được bật
 
     const siteTitle = (alias) => {
         switch (true) {
@@ -98,7 +95,7 @@ const FullPageTemplate = () => {
                     arrNavlink.map((item, index) => {
                         return (
                             <li className='mt-3' data-menuanchor={removeVietnameseTones(item.content).trim().replace(/\s+/g, '-')} key={index}>
-                                <a href={`#${index + 1}`}>{item.content}</a>
+                                <a href={`#${index}`}>{item.content}</a>
                             </li>
                         )
                     })

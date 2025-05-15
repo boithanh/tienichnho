@@ -118,3 +118,6 @@ export function setRandomBackground() {
     return gradient;
 }
 
+export const runtimeFlags = {
+    hasAppliedHomeStyle: false,
+};
