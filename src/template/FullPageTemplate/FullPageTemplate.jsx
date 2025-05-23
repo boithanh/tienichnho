@@ -40,7 +40,8 @@ const FullPageTemplate = () => {
         , [])
 
     useEffect(() => {
-        if (!colors || colors.length === 0) return; // tránh chạy khi chưa có màu
+        if (!colors || colors.length === 0) return; // tránh chạy khi chưa có 
+        if (colors && runtimeFlags.hasAppliedHomeStyle === false) return; // tránh chạy khi đã có màu
         const toRgb = ([r, g, b]) => `rgb(${r}, ${g}, ${b})`;
         const indexBgColor1 = 4;
         const indexBgColor2 = 3;

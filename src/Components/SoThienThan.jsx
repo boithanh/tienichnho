@@ -14,7 +14,7 @@ const SoThienThan = () => {
                     return "breadcrumb-item " + (isActive ? "active" : "") + (isPending ? "pending" : "")
                 }} aria-current="page">Số Thiên Thần</NavLink>
             </nav>
-            <iframe src="https://kechuyentamlinh.vercel.app/" width={"100%"} height={"100%"} style={{ width: "100%", minHeight: "100vh", overflow: "hidden" }} allowFullScreen></iframe>
+            <iframe src="https://angelsnumber.vercel.app/" width={"100%"} height={"100%"} style={{ width: "100%", minHeight: "100vh", overflow: "hidden" }} allowFullScreen></iframe>
         </>
     )
 }
