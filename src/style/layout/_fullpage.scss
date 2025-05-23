@@ -75,8 +75,11 @@ i {
     z-index: 70;
     width: 100%;
     padding: 20px;
-    ;
     margin: 0;
+
+    @media screen and (max-width:431px) {
+        padding-top: 35px;
+    }
 }
 
 #menu li {
