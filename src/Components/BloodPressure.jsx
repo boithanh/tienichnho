@@ -13,6 +13,7 @@ const BloodPressure = () => {
     const [valueBlood, setValueBlood] = useState("");
     const [hieuAp, setHieuAp] = useState("");
     const [icon, setIcon] = useState(false);
+    const [animate, setAnimate] = useState(false);
     const containerRef = useRef(null); // Tạo ref cho div chứa HTML
     // const isReponsive = useResponsive({
     //     mobile: 576,
@@ -116,6 +117,10 @@ const BloodPressure = () => {
             BloodPressureCheck(values);
             heartRateCheck(values);
             setIcon(true);
+            setAnimate(!animate);
+            setTimeout(() => {
+                setAnimate(false); // thêm lại sau 10ms
+            }, 1000);
         },
         validationSchema: yup.object({
             tamThu: yup.string().required("Vui lòng không bỏ trống Tâm Thu").matches(/^(?:[5-9][1-9]|1\d{2})$/, "Vui lòng nhập số và phải hợp lệ [51-199]"),
@@ -153,9 +158,9 @@ const BloodPressure = () => {
                                         resetForm();
                                     }}>Reset</button>
                                 </div>
-                                <div className={`myShadow ${!icon ? "d-none " : "d-block "}`}>
+                                <div className={`myShadow`}>
                                     <h5 className='p-2'>Chẩn đoán</h5>
-                                    <div className='pb-5'>
+                                    <div className={`pb-5 ${animate && "animate__animated animate__lightSpeedInRight"}`}>
                                         <p className='mb-3'><i className={`${!icon ? "d-none " : "d-block "}fa-solid fa-droplet text-warning fs-3 mx-3`}></i>{valueBlood}</p>
                                         <p className='mb-3'><i className={`${!icon ? "d-none " : "d-block "}fa-solid fa-user text-primary fs-3 mx-3`}></i>{hieuAp}</p>
                                         <p className='mb-3'><i className={`${!icon ? "d-none " : "d-block "}fa-solid fa-heart text-danger fs-4 mx-3`}></i>{value}</p>

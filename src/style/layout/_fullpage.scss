@@ -2,22 +2,26 @@ body {
     font-family: arial, helvetica;
 }
 
-h1 {
-    font-size: 6em;
-    font-size: calc(2em + 2vw);
-    margin: 0;
+#fullpage {
+    h1 {
+        font-size: 6em;
+        font-size: calc(2em + 2vw);
+        margin: 0;
+    }
+
+    i {
+        transform: translateY(-20px);
+        animation: poo 2s ease-in-out infinite;
+        overflow: hidden;
+    }
+
+    .section {
+        color: #fff;
+        text-align: center;
+    }
 }
 
-i {
-    transform: translateY(-20px);
-    animation: poo 2s ease-in-out infinite;
-    overflow: hidden;
-}
 
-.section {
-    color: #fff;
-    text-align: center;
-}
 
 /* Automation gen color class */
 // $colors: #CBE7E3, #05999E, #FF5733, #33FF57, #3357FF;
