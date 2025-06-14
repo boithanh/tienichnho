@@ -69,7 +69,7 @@ const FullPageTemplate = () => {
     const siteTitle = (alias) => {
         switch (true) {
             case alias === "Home":
-                return "Hover Me or Scroll Down ⬇"
+                return "Hover Me & Scroll Down"
             case alias === "BloodPresure Check":
                 return "Kiểm tra thông số huyết áp"
             case alias === "Lottery Random":
@@ -95,7 +95,7 @@ const FullPageTemplate = () => {
                 {
                     arrNavlink.map((item, index) => {
                         return (
-                            <li className='mt-3' data-menuanchor={removeVietnameseTones(item.content).trim().replace(/\s+/g, '-')} key={index}>
+                            <li className='mt-2' data-menuanchor={removeVietnameseTones(item.content).trim().replace(/\s+/g, '-')} key={index}>
                                 <a href={`#${index}`}>{item.content}</a>
                             </li>
                         )

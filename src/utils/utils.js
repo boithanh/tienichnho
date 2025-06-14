@@ -54,7 +54,7 @@ export default function createRandomSquares(count) {
                         box-shadow: 0 4px 30px rgba(0, 0, 0, ${shadowOpacity});
                         backdrop-filter: blur(${blurAmount}px);
                         border: 1px solid rgba(255, 255, 255, 0.3);
-                        position: absolute;
+                        position: sticky;
                     ">
                 </div>`;
     });
