@@ -14,6 +14,7 @@ import LacXiNgau from '../Components/LacXiNgau'
 import FullPageTemplate from '../template/FullPageTemplate/FullPageTemplate'
 import MegaRandomCustom from '../Components/MegaRandomCustom'
 import SoThienThan from '../Components/SoThienThan'
+import BookJourneyDiary from '../Components/BookJourneyDiary'
 
 const useRouteCustom = () => {
 
@@ -47,8 +48,8 @@ const useRouteCustom = () => {
             element: <MegaRandomCustom />
         },
         {
-            path: path.soThienThan,
-            element: <SoThienThan />
+            path: path.bookJourneyDiary,
+            element: <BookJourneyDiary />
         },
         {
             path: "*",

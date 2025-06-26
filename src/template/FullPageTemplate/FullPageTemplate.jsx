@@ -36,7 +36,6 @@ const FullPageTemplate = () => {
             console.log(err);
         });
     }
-
         , [])
 
     useEffect(() => {
@@ -84,6 +83,8 @@ const FullPageTemplate = () => {
                 return "Random 6/45 custom"
             case alias === "Số thiên thần":
                 return "Angel Numbers"
+            case alias === "My's book journey diary":
+                return "Book Journey diary"
             default:
                 return "Page Not Found"
         }

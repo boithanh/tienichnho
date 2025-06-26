@@ -7,5 +7,6 @@ export const path = {
     lacXiNgau: "/lac-xi-ngau",
     randomMegaCustom: "/random-mega-custom",
     soThienThan: "/so-thien-than",
-    pageNotFound: "*"
+    pageNotFound: "*",
+    bookJourneyDiary: "book-journey-diary"
 }

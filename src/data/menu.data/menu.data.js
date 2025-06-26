@@ -10,6 +10,10 @@ export const arrNavlink = [
         content: "BloodPresure Check"
     },
     {
+        to: path.soThienThan,
+        content: "Số thiên thần"
+    },
+    {
         to: path.randomDefaultLottery,
         content: "Lottery Random"
     },
@@ -30,7 +34,7 @@ export const arrNavlink = [
         content: "Random Mega Custom"
     },
     {
-        to: path.soThienThan,
-        content: "Số thiên thần"
+        to: path.bookJourneyDiary,
+        content: "My's book journey diary"
     }
 ]
