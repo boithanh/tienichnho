@@ -1,20 +1,15 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import Breadcrumb from './Breadcrumb/Breadcrumb'
 
 const SoThienThan = () => {
     return (
         <>
-            <nav className="breadcrumb z-3 w-100 top-0 left-0" style={{
-                backgroundColor: "rgba(80, 65, 54, 1)"
-            }}>
-                <NavLink to="/" className={({ isActive, isPending }) => {
-                    return "breadcrumb-item " + (isActive ? "active" : "") + (isPending ? "pending" : "")
-                }} aria-current="page">Trang Chủ</NavLink>
-                <NavLink to="/so-thien-than" className={({ isActive, isPending }) => {
-                    return "breadcrumb-item " + (isActive ? "active" : "") + (isPending ? "pending" : "")
-                }} aria-current="page">Số Thiên Thần</NavLink>
-            </nav>
-            <iframe src="https://angelsnumber.vercel.app/" width={"100%"} height={"100%"} style={{ width: "100%", minHeight: "100vh", overflow: "hidden" }} allowFullScreen></iframe>
+            <div style={{ height: "100vh" }}>
+                <Breadcrumb homeUrl={"/"} currentUrl={""} homeContent={"Trang chủ"} currentContent={"Số Thiên Thần"} bgColor={"#201E50"} color={"white"} />
+                <iframe src="https://angelsnumber.vercel.app/" width={"100%"} height={"100%"} style={{ width: "100%", minHeight: "100vh", overflow: "hidden" }} allowFullScreen></iframe>
+            </div>
+
         </>
     )
 }

@@ -5,6 +5,7 @@ import InputCustom from './../hooks/InputCustom'
 import * as yup from 'yup'
 import { Nav } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
+import Breadcrumb from './Breadcrumb/Breadcrumb'
 
 // import useResponsive from '../hooks/useResponsive'
 
@@ -15,10 +16,6 @@ const BloodPressure = () => {
     const [icon, setIcon] = useState(false);
     const [animate, setAnimate] = useState(false);
     const containerRef = useRef(null); // Tạo ref cho div chứa HTML
-    // const isReponsive = useResponsive({
-    //     mobile: 576,
-    //     tablets: 768
-    // })
 
     useEffect(() => {
         if (containerRef.current) {
@@ -131,15 +128,7 @@ const BloodPressure = () => {
     });
     return (
         <>
-            <nav className="breadcrumb z-3 w-100">
-                <NavLink to="/" className={({ isActive, isPending }) => {
-                    return "breadcrumb-item " + (isActive ? "active" : "") + (isPending ? "pending" : "")
-                }} aria-current="page">Trang Chủ</NavLink>
-                <NavLink to="/blood-pressure" className={({ isActive, isPending }) => {
-                    return "breadcrumb-item " + (isActive ? "active" : "") + (isPending ? "pending" : "")
-                }} aria-current="page">Blood Pressure</NavLink>
-            </nav>
-
+            <Breadcrumb homeUrl={"/"} currentUrl={""} homeContent={"Trang chủ"} currentContent={"Blood Pressure"} bgColor={"rgba(255,255,255,0.3)"} color={"#29274C"} position='absolute' />
             <div className='container-fluid blood-pressure position-relative'>
                 <div className="row">
                     <h1 className='fs-10 mb-4 p-2 text-center mt-5 z-2'>Kiểm tra thông số huyết áp</h1>

@@ -44,6 +44,10 @@ const useRouteCustom = () => {
             element: <Suspense fallback={<Skeleton active paragraph={{ rows: 30 }} />}><BloodPressure /></Suspense>
         },
         {
+            path: path.soThienThan,
+            element: <Suspense fallback={<Skeleton active paragraph={{ rows: 30 }} />}><SoThienThan /></Suspense>
+        },
+        {
             path: path.randomMegaCustom,
             element: <MegaRandomCustom />
         },

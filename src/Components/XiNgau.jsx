@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { thayDoiBanChon } from '../redux/slices/xiNgauSlice';
 import { NavLink } from 'react-router-dom';
+import Breadcrumb from './Breadcrumb/Breadcrumb';
 
 
 const XiNgau = () => {
@@ -9,14 +10,7 @@ const XiNgau = () => {
     const dispatch = useDispatch();
     return (
         <>
-            <nav className="breadcrumb z-3 w-100 position-fixed top-0 left-0">
-                <NavLink to="/" className={({ isActive, isPending }) => {
-                    return "breadcrumb-item " + (isActive ? "active" : "") + (isPending ? "pending" : "")
-                }} aria-current="page">Trang Chủ</NavLink>
-                <NavLink to="/lac-xi-ngau" className={({ isActive, isPending }) => {
-                    return "breadcrumb-item " + (isActive ? "active" : "") + (isPending ? "pending" : "")
-                }} aria-current="page">Đổ xúc xắc</NavLink>
-            </nav>
+            <Breadcrumb homeUrl={"/"} currentUrl={""} homeContent={"Trang chủ"} currentContent={"Đổ xúc xắc"} bgColor={"rgba(255,255,255,0.3)"} color={"black"} position='absolute' />
             <div className="container-fluid">
                 <div className="row">
                     <div className="col">

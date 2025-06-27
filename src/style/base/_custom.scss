@@ -1,12 +1,5 @@
 .breadcrumb {
-    background-color: rgba(80, 65, 54, 0.8);
-    padding: 10px;
-    margin-bottom: 0;
-    position: relative;
-
-
     .breadcrumb-item {
-        color: white !important;
         text-decoration: none;
 
         &.active {
@@ -18,5 +11,15 @@
         &::before {
             color: #7F949A !important;
         }
+    }
+}
+
+@keyframes runSquare {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(100px);
     }
 }

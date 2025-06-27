@@ -3,6 +3,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { BookOpen, BookmarkCheck } from "lucide-react";
 import useResponsive from '../hooks/useResponsive';
+import Breadcrumb from './Breadcrumb/Breadcrumb';
+import { path } from '../common/path';
 const books = [
     {
         id: 1,
@@ -41,46 +43,50 @@ const BookJourneyDiary = () => {
         desktop: 1024
     })
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col">
-                    <div className={`min-vh-100 mw-100 p-4 d-flex flex-column align-items-center justify-content-center border-start border-end border-black`}>
-                        <motion.div
-                            key={book.id}
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.6 }}
-                            className={`p-4 border border-black rounded-5 ${book.color} ${responsive.mobile ? "w-100" : "w-50"}`} style={{ minHeight: 500 }}>
+        <>
+            <Breadcrumb homeUrl={"/"} currentUrl={""} homeContent={"Trang chủ"} currentContent={"Book Journey Diary"} bgColor={"black"} color={"white"} />
+            <div className="container">
+                <div className="row">
+                    <div className="col">
+                        <div className={`min-vh-100 mw-100 p-4 d-flex flex-column align-items-center justify-content-center border-start border-end border-black`}>
+                            <motion.div
+                                key={book.id}
+                                initial={{ opacity: 0, x: 50 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.6 }}
+                                className={`p-4 border border-black rounded-5 ${book.color} ${responsive.mobile ? "w-100" : "w-50"}`} style={{ minHeight: 500 }}>
 
-                            <h2 className="rounded-5 fs-2 bold mb-2 d-flex align-items-center gap-2">
-                                <BookOpen /> {book.title}
-                            </h2>
-                            <p className="italic text-sm mb-4">{book.skill}</p>
-                            <img src={book.image} alt={book.title} className="rounded-5 mw-25 object-fit-cover mb-4 accordion" />
+                                <h2 className="rounded-5 fs-2 bold mb-2 d-flex align-items-center gap-2">
+                                    <BookOpen /> {book.title}
+                                </h2>
+                                <p className="italic text-sm mb-4">{book.skill}</p>
+                                <img src={book.image} alt={book.title} className="rounded-5 mw-25 object-fit-cover mb-4 accordion" />
 
-                            <div className="mb-4">
-                                <p className="font-semibold mb-1">Ghi chú tâm đắc:</p>
-                                <ul className="list-disc pl-5 text-sm space-y-1">
-                                    {book.notes.map((note, i) => (
-                                        <li key={i}>{note}</li>
-                                    ))}
-                                </ul>
-                            </div>
-
-                            <div className="d-flex justify-content-between align-items-center mt-4">
-                                <div className="fs-5 d-flex align-items-center gap-2">
-                                    <BookmarkCheck className="w-4 h-4" /> Đã đọc: {book.progress}%
+                                <div className="mb-4">
+                                    <p className="font-semibold mb-1">Ghi chú tâm đắc:</p>
+                                    <ul className="list-disc pl-5 text-sm space-y-1">
+                                        {book.notes.map((note, i) => (
+                                            <li key={i}>{note}</li>
+                                        ))}
+                                    </ul>
                                 </div>
-                                <div className="d-flex gap-2">
-                                    <button onClick={() => setCurrent((current - 1 + books.length) % books.length)} className='btn btn-outline-dark'>◀ Trước</button>
-                                    <button onClick={() => setCurrent((current + 1) % books.length)} className='btn btn-outline-dark'> Tiếp ▶</button>
+
+                                <div className="d-flex justify-content-between align-items-center mt-4">
+                                    <div className="fs-5 d-flex align-items-center gap-2">
+                                        <BookmarkCheck className="w-4 h-4" /> Đã đọc: {book.progress}%
+                                    </div>
+                                    <div className="d-flex gap-2">
+                                        <button onClick={() => setCurrent((current - 1 + books.length) % books.length)} className='btn btn-outline-dark'>◀ Trước</button>
+                                        <button onClick={() => setCurrent((current + 1) % books.length)} className='btn btn-outline-dark'> Tiếp ▶</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </motion.div>
+                            </motion.div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
+
     )
 }
 

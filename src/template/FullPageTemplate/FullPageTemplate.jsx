@@ -1,12 +1,19 @@
 import ReactFullpage from '@fullpage/react-fullpage';
 import React, { useEffect, useRef, useState } from 'react'
 import { arrNavlink } from '../../data/data';
-import { removeVietnameseTones } from '../../utils/utils';
+import createRandomSquares, { removeVietnameseTones } from '../../utils/utils';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { runtimeFlags } from '../../utils/utils';
 const FullPageTemplate = () => {
     const [colors, setColors] = useState([]);
+    const containerRef = useRef(null);
+
+    useEffect(() => {
+        if (containerRef.current) {
+            containerRef.current.innerHTML = createRandomSquares(365); // Thêm HTML vào DOM
+        }
+    }, []); // Dependency array rỗng -> không chạy lại khi nhập input
 
     const fetchOnePair = () => {
         try {
@@ -15,7 +22,7 @@ const FullPageTemplate = () => {
                 url: 'https://colomind-server-workers.boithanh01694.workers.dev/api/colors', //Do colomind ko có https ko gọi trực tiếp để fetch API đc nên phải gọi trung gian qua worker 
                 data: '{ "model": "default" }'
             }).then((res) => res.data.result).catch((err) => {
-                // console.log("Có gì đó không ổn xảy ra, vui lòng thử lại", err);
+                console.log("Có gì đó không ổn xảy ra, vui lòng thử lại", err);
                 return [[0, 0, 0], [255, 255, 255]];
             })
         } catch (err) {
@@ -48,7 +55,7 @@ const FullPageTemplate = () => {
         const indexButton1 = 1;
         const indexButton2 = 2;
         const style = document.createElement('style');
-        if (colors.length === 8 && colors.every(p => p && p.length)) {
+        if (colors.length == arrNavlink.length && colors.every(p => p && p.length)) {
             const cssRules = colors.map((palette, i) => {
                 const bgColor1 = palette[indexBgColor1];
                 const bgColor2 = palette[indexBgColor2];
@@ -103,6 +110,7 @@ const FullPageTemplate = () => {
                     })
                 }
             </ul>
+
             <ReactFullpage
                 menu="#menu"
                 anchors={arrNavlink.map(item => removeVietnameseTones(item.content).trim().replace(/\s+/g, '-'))}
@@ -110,19 +118,23 @@ const FullPageTemplate = () => {
                 lockAnchors={true}
                 render={() => (
                     <ReactFullpage.Wrapper>
+                        <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", zIndex: "1" }} className='random-square' ref={containerRef}>
+                        </div>
                         {
                             arrNavlink.map((item, index) => {
                                 return (
                                     <div key={index} className={`section dynamic-bg${index}`}>
-                                        <div className='btn-content'><Link className={`btn dynamic-button${index}`} to={item.to}>{siteTitle(item.content)}</Link></div>
+                                        <div className='btn-content' style={{ zIndex: 100000 }}><Link className={`btn dynamic-button${index}`} to={item.to}>{siteTitle(item.content)}</Link></div>
                                         <i className={`fa-solid fa-arrow-down fs-2 awesome-custom${index}`}></i>
                                     </div>
                                 )
                             })
                         }
+
                     </ReactFullpage.Wrapper>
                 )}
-            />
+                style={{ zIndex: 2 }} />
+
         </div>
     )
 
