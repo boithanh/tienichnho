@@ -56,7 +56,6 @@ export default function createRandomSquares(count) {
                         border: 1px solid rgba(255, 255, 255, 0.3);
                         position: sticky;
                         opacity:0.5;
-                        z-index:2;
                     ">
                 </div>`;
     });

@@ -2,8 +2,6 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 const Breadcrumb = ({ homeUrl, currentUrl, homeContent, currentContent, bgColor, color, position = "relative" }) => {
-    console.log(color);
-
     return (
         <nav className="breadcrumb z-3 w-100 top-0 left-0" style={{
             backgroundColor: `${bgColor}`,

@@ -6,12 +6,15 @@ import * as yup from 'yup'
 import { Nav } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 import Breadcrumb from './Breadcrumb/Breadcrumb'
+import { div } from 'framer-motion/client'
 
 // import useResponsive from '../hooks/useResponsive'
 
 const BloodPressure = () => {
     const [value, setValue] = useState("");
     const [valueBlood, setValueBlood] = useState("");
+    const [save, setSave] = useState([]);
+    const [history, setHistory] = useState("");
     const [hieuAp, setHieuAp] = useState("");
     const [icon, setIcon] = useState(false);
     const [animate, setAnimate] = useState(false);
@@ -23,10 +26,34 @@ const BloodPressure = () => {
         }
     }, []); // Dependency array rỗng -> không chạy lại khi nhập input
 
+    useEffect(() => {
+        const data = JSON.parse(localStorage.getItem('bpValue')) || [];
+        setSave(data);
+
+    }, []);
+
+    function getHistory(arrHistory = save) {
+        const result = arrHistory.map((item) => {
+            let { dayTime, tamThu, tamTruong, chanDoan } = item
+            return (
+
+                <p>
+                    <span className='fw-semibold'>
+                        {`${dayTime}:`}
+                    </span>
+                    {` Tâm thu: ${tamThu} | Tâm trương: ${tamTruong} | Chẩn đoán: ${chanDoan}`}
+                </p>
+            )
+
+        })
+        setHistory(result);
+    }
+
     //Kiểm tra tâm thu và tâm trương
     function systolicAndDiastolicCheck(tamThu, tamTruong) {
         if (tamThu <= 70 && tamTruong <= 40) {
             setValueBlood("Huyết áp cực thấp, cần đến bệnh viện ngay!!!");
+
         }
         else if ((tamThu < 90 && tamThu > 70) && (tamTruong < 60 && tamTruong > 40)) {
             setValueBlood("Huyết áp thấp");
@@ -70,22 +97,32 @@ const BloodPressure = () => {
     function BloodPressureCheck(parameter) {
         let { tamTruong, tamThu } = parameter;
         let hA = calculatePulsePressure(tamThu, tamTruong);
+        let kq = "";
         if (hA >= 40 && hA <= 60) {
             systolicAndDiastolicCheck(tamThu, tamTruong);
-            setHieuAp("Hiệu áp bình thường");
+            kq = "Hiệu áp bình thường";
+            setHieuAp(kq);
         }
         else if (hA >= 35 && hA < 40) {
             systolicCheckOnly(tamThu);
-            setHieuAp("Hiệu áp có vẻ hơi hẹp, nhưng không đáng lo ngại. Thông số này nằm trong giới hạn bình thường đối với một số người");
+            kq = "Hiệu áp có vẻ hơi hẹp, nhưng không đáng lo ngại. Thông số này nằm trong giới hạn bình thường đối với một số người"
+            setHieuAp(kq);
         }
         else if (hA >= 26 && hA < 35) {
             systolicCheckOnly(tamThu);
-            setHieuAp("Hiệu áp hẹp đáng kể, Có thể liên quan đến suy tim, sốc tim, hoặc hẹp động mạch chủ, dẫn đến giảm cung cấp máu đến các cơ quan. Nếu gặp triệu chứng như chóng mặt, mệt mỏi, khó thở, hoặc lạnh tay chân (do thiếu oxy đến mô) vui lòng đến cơ sở y tế gần nhất để được điều trị kịp thời");
+            kq = "Hiệu áp hẹp đáng kể, Có thể liên quan đến suy tim, sốc tim, hoặc hẹp động mạch chủ, dẫn đến giảm cung cấp máu đến các cơ quan. Nếu gặp triệu chứng như chóng mặt, mệt mỏi, khó thở, hoặc lạnh tay chân (do thiếu oxy đến mô) vui lòng đến cơ sở y tế gần nhất để được điều trị kịp thời"
+            setHieuAp(kq);
         }
         else {
             systolicCheckOnly(tamThu);
-            setHieuAp("Hiệu áp hẹp, nguy hiểm cần đến bệnh viện");
+            kq = "Hiệu áp hẹp, nguy hiểm cần đến bệnh viện"
+            setHieuAp(kq);
         }
+        setSave(prev => {
+            const updated = [...prev, { "dayTime": getDateTime(), "tamThu": tamThu, "tamTruong": tamTruong, "chanDoan": kq }];
+            saveLocalStorage(updated);
+            return updated;
+        });
     }
     function heartRateCheck(parameter) {
         let { nhipTim } = parameter;
@@ -124,8 +161,26 @@ const BloodPressure = () => {
             tamTruong: yup.string().required("Vui lòng không bỏ trống tâm trương").matches(/^(?:4[1-9]|[5-9]\d|1[01]\d)$/, "Vui lòng nhập số và phải hợp lệ [41-119]"),
             nhipTim: yup.string().required("Vui lòng không bỏ trống nhịp tim").matches(/^(?:3[1-9]|[4-9]\d|[12]\d{2})$/, "Vui lòng nhập số và phải hợp lệ [31 đến 299]")
         })
-
     });
+
+    function saveLocalStorage(data) {
+
+        return localStorage.setItem("bpValue", JSON.stringify(data))
+    }
+
+    function getDateTime() {
+        const now = new Date(Date.now());
+
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
+        const year = now.getFullYear();
+
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+
+        return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+    }
     return (
         <>
             <Breadcrumb homeUrl={"/"} currentUrl={""} homeContent={"Trang chủ"} currentContent={"Blood Pressure"} bgColor={"rgba(255,255,255,0.3)"} color={"#29274C"} position='absolute' />
@@ -156,9 +211,15 @@ const BloodPressure = () => {
                                     </div>
                                 </div>
                             </form>
+                            <div className={`${save.length > 0 ? "d-flex" : "d-none"} justify-content-center mb-5`}><button className='btn btn-outline-light' onClick={() => { getHistory() }}>Xem lại lịch sử đo</button></div>
+                            <div className='rounded-3 p-2 opacity-75 mb-3'>
+                                {history}
+                            </div>
+
                             <div className='note'>
                                 <p>*** Lưu ý: Đo tại nhà thường có sai số, nếu kết quả đo bất thường trên 2 lần hoặc huyết áp bất thường vui lòng đến trạm y tế hoặc bệnh viện gần nhất để được thăm khám kịp thời</p>
                             </div>
+
                         </div>
                     </div>
                 </div>
