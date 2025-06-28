@@ -14,12 +14,28 @@
     }
 }
 
-@keyframes runSquare {
-    from {
-        transform: translateX(0);
+.scroll-down-fade {
+    font-size: 28px;
+    color: white;
+    opacity: 0.7;
+    animation: bounceDown 1.5s infinite;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+
+@keyframes bounceDown {
+
+    0%,
+    100% {
+        transform: translateX(-50%) translateY(0);
+        opacity: 0.6;
     }
 
-    to {
-        transform: translateX(100px);
+    50% {
+        transform: translateX(-50%) translateY(10px);
+        opacity: 1;
     }
 }

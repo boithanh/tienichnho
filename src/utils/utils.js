@@ -43,7 +43,7 @@ export default function createRandomSquares(count) {
         let backgroundOpacity = Math.random() * 0.5 + 0.2; // Độ trong suốt của background
 
         return `
-                <div className="square"
+                <div className="square animateSquare"
                     style="
                         width: ${size}px;
                         height: ${size}px;
@@ -55,6 +55,8 @@ export default function createRandomSquares(count) {
                         backdrop-filter: blur(${blurAmount}px);
                         border: 1px solid rgba(255, 255, 255, 0.3);
                         position: sticky;
+                        opacity:0.5;
+                        z-index:2;
                     ">
                 </div>`;
     });

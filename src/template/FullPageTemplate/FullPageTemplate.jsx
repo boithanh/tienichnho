@@ -11,7 +11,7 @@ const FullPageTemplate = () => {
 
     useEffect(() => {
         if (containerRef.current) {
-            containerRef.current.innerHTML = createRandomSquares(365); // Thêm HTML vào DOM
+            containerRef.current.innerHTML = createRandomSquares(200); // Thêm HTML vào DOM
         }
     }, []); // Dependency array rỗng -> không chạy lại khi nhập input
 
@@ -116,16 +116,22 @@ const FullPageTemplate = () => {
                 anchors={arrNavlink.map(item => removeVietnameseTones(item.content).trim().replace(/\s+/g, '-'))}
                 licenseKey="OPEN-SOURCE-GPLV3-LICENSE"
                 lockAnchors={true}
+                scrollingSpeed={1200}
+                css3={true}
+
                 render={() => (
                     <ReactFullpage.Wrapper>
-                        <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", zIndex: "1" }} className='random-square' ref={containerRef}>
+                        <div style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", zIndex: 1 }} className='random-square' ref={containerRef}>
                         </div>
+
                         {
                             arrNavlink.map((item, index) => {
                                 return (
                                     <div key={index} className={`section dynamic-bg${index}`}>
-                                        <div className='btn-content' style={{ zIndex: 100000 }}><Link className={`btn dynamic-button${index}`} to={item.to}>{siteTitle(item.content)}</Link></div>
-                                        <i className={`fa-solid fa-arrow-down fs-2 awesome-custom${index}`}></i>
+                                        <div className='btn-content' style={{ zIndex: 5 }}><Link className={`btn dynamic-button${index}`} to={item.to}>{siteTitle(item.content)}</Link></div>
+                                        <div className="scroll-down-fade">
+                                            <i className={`fa-solid fa-chevron-down fs-2 z-3 awesome-custom${index}`}></i>
+                                        </div>
                                     </div>
                                 )
                             })
@@ -133,9 +139,9 @@ const FullPageTemplate = () => {
 
                     </ReactFullpage.Wrapper>
                 )}
-                style={{ zIndex: 2 }} />
-
+            />
         </div>
+
     )
 
 }
