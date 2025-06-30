@@ -7,8 +7,8 @@ import { Nav } from 'react-bootstrap'
 import { NavLink } from 'react-router-dom'
 import Breadcrumb from './Breadcrumb/Breadcrumb'
 import { div } from 'framer-motion/client'
+import { bpThresholds } from '../data/bloodpressure.data/bloodpressure.data'
 
-// import useResponsive from '../hooks/useResponsive'
 
 const BloodPressure = () => {
     const [value, setValue] = useState("");
@@ -19,6 +19,7 @@ const BloodPressure = () => {
     const [icon, setIcon] = useState(false);
     const [animate, setAnimate] = useState(false);
     const containerRef = useRef(null); // Tạo ref cho div chứa HTML
+    const divRef = useRef(null);
 
     useEffect(() => {
         if (containerRef.current) {
@@ -34,14 +35,14 @@ const BloodPressure = () => {
 
     function getHistory(arrHistory = save) {
         const result = arrHistory.map((item) => {
-            let { dayTime, tamThu, tamTruong, chanDoan } = item
+            let { dayTime, tamThu, tamTruong, chanDoanHuyetAp, chanDoanHieuAp, chanDoanNhipTim } = item
             return (
 
                 <p>
                     <span className='fw-semibold'>
                         {`${dayTime}:`}
                     </span>
-                    {` Tâm thu: ${tamThu} | Tâm trương: ${tamTruong} | Chẩn đoán: ${chanDoan}`}
+                    {` Tâm thu: ${tamThu} | Tâm trương: ${tamTruong} - ${chanDoanHuyetAp} - ${chanDoanHieuAp} - ${chanDoanNhipTim}`}
                 </p>
             )
 
@@ -50,93 +51,142 @@ const BloodPressure = () => {
     }
 
     //Kiểm tra tâm thu và tâm trương
-    function systolicAndDiastolicCheck(tamThu, tamTruong) {
-        if (tamThu <= 70 && tamTruong <= 40) {
-            setValueBlood("Huyết áp cực thấp, cần đến bệnh viện ngay!!!");
-
+    function systolicAndDiastolicCheck(systolicReuslt, diastolicResult) {
+        if (systolicReuslt === "veryLow" && systolicReuslt === diastolicResult) {
+            return "Huyết áp cực thấp, cần đến bệnh viện ngay!!!";
         }
-        else if ((tamThu < 90 && tamThu > 70) && (tamTruong < 60 && tamTruong > 40)) {
-            setValueBlood("Huyết áp thấp");
+        else if (systolicReuslt === "low" && systolicReuslt === diastolicResult) {
+            return "Huyết áp thấp";
         }
-        else if ((tamThu < 115 && tamThu >= 90) && (tamTruong < 65 && tamTruong >= 60)) {
-            setValueBlood("Huyết áp bình thường");
-        }
-
-        else if ((tamThu >= 115 && tamThu < 130) && (tamTruong >= 65 && tamTruong < 80)) {
-            setValueBlood("Tiền sử tăng huyết áp");
-        } else {
-            systolicCheckOnly(tamThu);
+        else if (systolicReuslt === "normal" && systolicReuslt === diastolicResult) {
+            return "Huyết áp bình thường";
         }
 
-    }
-
-    //Chỉ kiểm tra tâm thu
-    function systolicCheckOnly(tamThu) {
-        if (tamThu <= 70) {
-            setValueBlood("Huyết áp cực thấp, cần đến bệnh viện ngay!!!");
+        else if (systolicReuslt === "high" && systolicReuslt === diastolicResult) {
+            return "Tiền sử tăng huyết áp";
         }
-        else if (tamThu < 90 && tamThu > 70) {
-            setValueBlood("Huyết áp thấp");
-        }
-        else if (tamThu < 115 && tamThu >= 90) {
-            setValueBlood("Huyết áp bình thường");
-        }
-
-        else if (tamThu >= 115 && tamThu < 130) {
-            setValueBlood("Tiền sử tăng huyết áp");
-        } else {
-            setValueBlood("Cao huyết áp");
-        }
-
-    }
-
-    function calculatePulsePressure(tamThu, tamTruong) {
-        return (tamThu * 1) - (tamTruong * 1)
-    }
-
-    function BloodPressureCheck(parameter) {
-        let { tamTruong, tamThu } = parameter;
-        let hA = calculatePulsePressure(tamThu, tamTruong);
-        let kq = "";
-        if (hA >= 40 && hA <= 60) {
-            systolicAndDiastolicCheck(tamThu, tamTruong);
-            kq = "Hiệu áp bình thường";
-            setHieuAp(kq);
-        }
-        else if (hA >= 35 && hA < 40) {
-            systolicCheckOnly(tamThu);
-            kq = "Hiệu áp có vẻ hơi hẹp, nhưng không đáng lo ngại. Thông số này nằm trong giới hạn bình thường đối với một số người"
-            setHieuAp(kq);
-        }
-        else if (hA >= 26 && hA < 35) {
-            systolicCheckOnly(tamThu);
-            kq = "Hiệu áp hẹp đáng kể, Có thể liên quan đến suy tim, sốc tim, hoặc hẹp động mạch chủ, dẫn đến giảm cung cấp máu đến các cơ quan. Nếu gặp triệu chứng như chóng mặt, mệt mỏi, khó thở, hoặc lạnh tay chân (do thiếu oxy đến mô) vui lòng đến cơ sở y tế gần nhất để được điều trị kịp thời"
-            setHieuAp(kq);
+        else if (systolicReuslt === "high" && systolicReuslt === diastolicResult) {
+            return "Tiền sử tăng huyết áp";
         }
         else {
-            systolicCheckOnly(tamThu);
-            kq = "Hiệu áp hẹp, nguy hiểm cần đến bệnh viện"
-            setHieuAp(kq);
+            return "Trường hợp ngoài mong đợi của huyết áp, vui lòng thử lại"
         }
+    }
+
+
+
+    function handleMismatchedBP(sysRank, diasRank) {
+        if ((sysRank === 'high' && diasRank === 'normal') || (sysRank === 'veryHigh' && diasRank === 'normal')) return 'Tăng huyết áp tâm thu đơn độc';
+        if ((sysRank === 'normal' && diasRank === 'high') || (sysRank === 'normal' && diasRank === 'veryHigh')) return 'Tăng huyết áp tâm trương đơn độc';
+        return 'Huyết áp không đồng nhất - nên theo dõi thêm hoặc hỏi bác sĩ';
+    }
+
+
+
+    function getPpLevel(tamThu, tamTruong, ranges) {
+        const difference = (tamThu * 1) - (tamTruong * 1);
+        for (let range of ranges) {
+            if (
+                (range.min === undefined || difference >= range.min) &&
+                (range.max === undefined || difference < range.max)
+            ) {
+
+                return range.label
+            }
+        }
+        return 'unknownPulsePressure';
+    }
+
+    function checkPulsePressure(pulsePressureResult) {
+        if (pulsePressureResult === "veryLow") {
+            return "Hiệu áp cực hẹp, nguy hiểm cần đến bệnh viện";
+        }
+        else if (pulsePressureResult === "low") {
+            return "Hiệu áp hẹp đáng kể, Có thể liên quan đến suy tim, sốc tim, hoặc hẹp động mạch chủ, dẫn đến giảm cung cấp máu đến các cơ quan. Nếu gặp triệu chứng như chóng mặt, mệt mỏi, khó thở, hoặc lạnh tay chân (do thiếu oxy đến mô) vui lòng đến cơ sở y tế gần nhất để được điều trị kịp thời";
+        }
+        else if (pulsePressureResult === "normal") {
+            return "Hiệu áp bình thường";
+        }
+
+        else if (pulsePressureResult === "high") {
+            return "Hiệu áp lớn bất thường có thể do tăng huyết áp";
+        }
+        else if (pulsePressureResult === "high") {
+            return "Hiệu áp cực lớn, có thể liên quan do huyết áp tăng nhiều, cần đi khám ngay!!";
+        }
+        else {
+            return "Trường hợp ngoài mong đợi của hiệu áp, vui lòng thử lại"
+        }
+    }
+
+
+    const rules = bpThresholds["user"]["day"];
+    function getBpLevel(inputValue, ranges) {
+        for (let range of ranges) {
+            if (
+                (range.min === undefined || inputValue >= range.min) &&
+                (range.max === undefined || inputValue < range.max)
+            ) {
+                return range.label;
+            }
+        }
+        return 'unknownBP';
+    }
+
+    function BloodPressureCheck(inputValue) {
+        let { tamTruong, tamThu, nhipTim } = inputValue;
+        let str = "";
+        const systolicLevel = getBpLevel(tamThu, rules.systolic);
+        const diastolicLevel = getBpLevel(tamTruong, rules.diastolic);
+        const pulsePressureLevel = getPpLevel(tamThu, tamTruong, rules.difference);
+        const pulsePressureNote = checkPulsePressure(pulsePressureLevel);
+        const heartRateLevel = getHeartRateLevel(nhipTim, rules.heartRate)
+        const hertRateNote = heartRateCheck(heartRateLevel);
+
+        if (systolicLevel === diastolicLevel) {
+            // Cùng nhóm → chẩn đoán thẳng
+            str = systolicAndDiastolicCheck(systolicLevel, diastolicLevel);
+
+        } else {
+            // Không cùng nhóm → các trường hợp cá biệt
+            str = handleMismatchedBP(systolicLevel, diastolicLevel);
+        }
+        setValueBlood(str);
+        setHieuAp(pulsePressureNote);
+        setValue(hertRateNote);
+
         setSave(prev => {
-            const updated = [...prev, { "dayTime": getDateTime(), "tamThu": tamThu, "tamTruong": tamTruong, "chanDoan": kq }];
+            const updated = [...prev, { "dayTime": getDateTime(), "tamThu": tamThu, "tamTruong": tamTruong, "chanDoanHuyetAp": str, "chanDoanHieuAp": pulsePressureNote, "chanDoanNhipTim": hertRateNote }];
             saveLocalStorage(updated);
             return updated;
         });
+
     }
-    function heartRateCheck(parameter) {
-        let { nhipTim } = parameter;
-        nhipTim *= 1;
-        if (nhipTim <= 60) {
-            setValue(`Nhịp tim chậm`);
-        } else if (nhipTim > 60 && nhipTim < 100) {
-            setValue("Nhịp tim bình thường");
+
+    function getHeartRateLevel(heartRate, ranges) {
+        for (let range of ranges) {
+            if (
+                (range.min === undefined || heartRate >= range.min) &&
+                (range.max === undefined || heartRate < range.max)
+            ) {
+                return range.label;
+            }
         }
-        else if (nhipTim >= 100) {
-            setValue("Nhịp tim nhanh");
+        return 'unknownHeartRate';
+    }
+
+    function heartRateCheck(heartRateResult) {
+        if (heartRateResult === "low") {
+            return "Nhịp tim chậm";
+        }
+        else if (heartRateResult === "normal") {
+            return "Nhịp tim bình thường";
+        }
+        else if (heartRateResult === "high") {
+            return "Nhịp tim nhanh";
         }
         else {
-            setValue("Nhịp tim bất ổn");
+            return "Trường hợp ngoài mong đợi của nhịp tim, vui lòng thử lại"
         }
     }
     // có thể ghi const formik = useformik ({}) hoặc bóc tách ra luôn để sử dụng các thuộc tính bên trong của formik
@@ -149,7 +199,6 @@ const BloodPressure = () => {
         },
         onSubmit: (values) => {
             BloodPressureCheck(values);
-            heartRateCheck(values);
             setIcon(true);
             setAnimate(!animate);
             setTimeout(() => {
@@ -157,7 +206,7 @@ const BloodPressure = () => {
             }, 1000);
         },
         validationSchema: yup.object({
-            tamThu: yup.string().required("Vui lòng không bỏ trống Tâm Thu").matches(/^(?:[5-9][1-9]|1\d{2})$/, "Vui lòng nhập số và phải hợp lệ [51-199]"),
+            tamThu: yup.string().required("Vui lòng không bỏ trống Tâm Thu").matches(/^(5[1-9]|[6-9][0-9]|1[0-9]{2})$/, "Vui lòng nhập số và phải hợp lệ [51-199]"),
             tamTruong: yup.string().required("Vui lòng không bỏ trống tâm trương").matches(/^(?:4[1-9]|[5-9]\d|1[01]\d)$/, "Vui lòng nhập số và phải hợp lệ [41-119]"),
             nhipTim: yup.string().required("Vui lòng không bỏ trống nhịp tim").matches(/^(?:3[1-9]|[4-9]\d|[12]\d{2})$/, "Vui lòng nhập số và phải hợp lệ [31 đến 299]")
         })
@@ -181,6 +230,9 @@ const BloodPressure = () => {
 
         return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
     }
+
+
+
     return (
         <>
             <Breadcrumb homeUrl={"/"} currentUrl={""} homeContent={"Trang chủ"} currentContent={"Blood Pressure"} bgColor={"rgba(255,255,255,0.3)"} color={"#29274C"} position='absolute' />
@@ -200,6 +252,10 @@ const BloodPressure = () => {
                                     <button type='submit' className='btn btn-outline-dark w-50 d-sm-inline-block mx-sm-2 mb-3'>Kiểm tra</button>
                                     <button type='button' className='btn btn-outline-light w-50 d-sm-inline-block mb-3' onClick={() => {
                                         resetForm();
+                                        setValueBlood("");
+                                        setHieuAp("");
+                                        setValue("");
+                                        setIcon(!icon);
                                     }}>Reset</button>
                                 </div>
                                 <div className={`myShadow`}>
@@ -227,6 +283,6 @@ const BloodPressure = () => {
             </div>
         </>
     )
-}
 
+}
 export default BloodPressure
