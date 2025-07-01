@@ -16,10 +16,10 @@ export const bpThresholds = {
                 { label: 'veryHigh', min: 80 },
             ],
             difference: [
-                { label: 'veryLow', max: 24 },
-                { label: 'low', min: 24, max: 35 },
+                { label: 'veryLow', max: 25 },
+                { label: 'low', min: 25, max: 31 },
                 { label: 'normal', min: 30, max: 51 },
-                { label: 'high', min: 51, max: 61 },
+                { label: 'high', min: 50, max: 61 },
                 { label: 'veryHigh', min: 61 },
             ],
             heartRate: [

@@ -35,15 +35,27 @@ const BloodPressure = () => {
 
     function getHistory(arrHistory = save) {
         const result = arrHistory.map((item) => {
-            let { dayTime, tamThu, tamTruong, chanDoanHuyetAp, chanDoanHieuAp, chanDoanNhipTim } = item
+            let { dayTime, tamThu, tamTruong, nhipTim, chanDoanHuyetAp, chanDoanHieuAp, chanDoanNhipTim } = item
             return (
 
-                <p>
-                    <span className='fw-semibold'>
+                <div className='mb-3 mt-3'>
+                    <span className='fw-bold'>
                         {`${dayTime}:`}
                     </span>
-                    {` Tâm thu: ${tamThu} | Tâm trương: ${tamTruong} - ${chanDoanHuyetAp} - ${chanDoanHieuAp} - ${chanDoanNhipTim}`}
-                </p>
+                    <p>
+                        {`Tâm thu: ${tamThu} | Tâm trương: ${tamTruong} | Nhịp tim: ${nhipTim}`}
+                    </p>
+                    <p>
+                        {`${chanDoanHuyetAp}`}
+                    </p>
+                    <p>
+                        {`${chanDoanHieuAp}`}
+                    </p>
+                    <p>
+                        {`${chanDoanNhipTim}`}
+                    </p>
+
+                </div>
             )
 
         })
@@ -53,32 +65,67 @@ const BloodPressure = () => {
     //Kiểm tra tâm thu và tâm trương
     function systolicAndDiastolicCheck(systolicReuslt, diastolicResult) {
         if (systolicReuslt === "veryLow" && systolicReuslt === diastolicResult) {
-            return "Huyết áp cực thấp, cần đến bệnh viện ngay!!!";
+            return "Huyết áp hiện đang thấp hơn nhiều so với mức bình thường, nhưng đừng lo lắng quá nhé. Chỉ cần bạn không có triệu chứng như chóng mặt, buồn nôn hay mệt mỏi thì cứ nghỉ ngơi và theo dõi thêm là được đó.";
         }
         else if (systolicReuslt === "low" && systolicReuslt === diastolicResult) {
-            return "Huyết áp thấp";
+            return "Huyết áp hơi thấp một chút, nhưng vẫn ổn nếu bạn cảm thấy khỏe. Hãy cố gắng ăn uống đầy đủ, ngủ nghỉ hợp lý và theo dõi thêm vài ngày nữa nhé!";
         }
         else if (systolicReuslt === "normal" && systolicReuslt === diastolicResult) {
-            return "Huyết áp bình thường";
+            return "👌 Huyết áp bạn đang ở mức lý tưởng rồi đó! Cứ duy trì sinh hoạt lành mạnh như hiện tại là tốt lắm rồi, tuyệt vời luôn!";
         }
 
         else if (systolicReuslt === "high" && systolicReuslt === diastolicResult) {
-            return "Tiền sử tăng huyết áp";
+            return "Huyết áp đang hơi cao hơn bình thường một chút. Có thể là do vận động, ăn mặn hoặc căng thẳng nhẹ. Bạn chỉ cần thư giãn, ăn nhạt hơn và nghỉ ngơi điều độ là ổn nha!";
         }
-        else if (systolicReuslt === "high" && systolicReuslt === diastolicResult) {
-            return "Tiền sử tăng huyết áp";
+        else if (systolicReuslt === "veryHigh" && systolicReuslt === diastolicResult) {
+            return "Huyết áp đang cao rõ rệt rồi bạn nhé. Đừng quá lo, nhưng nên theo dõi thường xuyên hơn, hạn chế stress và có thể tham khảo ý kiến bác sĩ nếu tình trạng lặp lại để yên tâm hơn ha!";
         }
         else {
             return "Trường hợp ngoài mong đợi của huyết áp, vui lòng thử lại"
         }
     }
 
+    function systolicCheckOnly(systolicRank, diastolicRank) {
+        if (systolicRank === "veryLow" && diastolicRank === "normal") {
+            return "Tâm thu của bạn đang thấp hơn đáng kể, nhưng nếu tâm trương vẫn bình thường và bạn không có triệu chứng như choáng, mệt mỏi hay buồn nôn thì cứ theo dõi thêm nhé. Nghỉ ngơi đủ, ăn uống đầy đủ là cơ thể sẽ phục hồi thôi.";
+        }
+        else if (systolicRank === "low" && diastolicRank === "normal") {
+            return "Tâm thu hơi thấp nhẹ, có thể do bạn đang đói, thiếu ngủ hoặc mệt. Nếu bạn vẫn thấy khỏe thì không sao đâu nha, cứ nghỉ ngơi chút rồi đo lại sau.";
+        }
+        else if (systolicRank === "high" && diastolicRank === "normal") {
+            return "Tâm thu của bạn đang hơi cao một chút trong khi tâm trương vẫn bình thường. Điều này có thể do bạn mới vận động, ăn mặn hoặc đang căng thẳng nhẹ. Hít thở sâu, nghỉ ngơi và theo dõi thêm vài lần đo nữa là ổn nha!";
+        }
 
+        else if (systolicRank === "veryHigh" && diastolicRank === "normal") {
+            return "Tâm thu đang cao rõ rệt so với bình thường, trong khi tâm trương vẫn ổn. Đây có thể là dấu hiệu tăng huyết áp tâm thu đơn độc - thường gặp ở người lớn tuổi hoặc căng thẳng kéo dài. Bạn nên theo dõi thường xuyên hơn và cân nhắc tham khảo bác sĩ nếu tình trạng lặp lại.";
+        }
+        else {
+            return "Trường hợp ngoài mong đợi của huyết áp tâm thu đơn độc, vui lòng thử lại"
+        }
+    }
 
-    function handleMismatchedBP(sysRank, diasRank) {
-        if ((sysRank === 'high' && diasRank === 'normal') || (sysRank === 'veryHigh' && diasRank === 'normal')) return 'Tăng huyết áp tâm thu đơn độc';
-        if ((sysRank === 'normal' && diasRank === 'high') || (sysRank === 'normal' && diasRank === 'veryHigh')) return 'Tăng huyết áp tâm trương đơn độc';
-        return 'Huyết áp không đồng nhất - nên theo dõi thêm hoặc hỏi bác sĩ';
+    function diastolicCheckOnly(systolicRank, diastolicRank) {
+        if (systolicRank === "normal" && diastolicRank === "veryLow") {
+            return "Tâm trương hiện hơi thấp rõ rệt, nhưng nếu bạn không có triệu chứng như hoa mắt, chóng mặt thì chưa cần lo lắng. Có thể là do mất nước nhẹ hoặc mệt mỏi. Cứ nghỉ ngơi và theo dõi lại nhé!";
+        }
+        else if (systolicRank === "normal" && diastolicRank === "low") {
+            return "Tâm trương hơi thấp hơn mức lý tưởng. Việc này đôi khi xảy ra ở người có thể trạng mảnh mai hoặc do đang đói, thiếu ngủ. Nghỉ ngơi, uống đủ nước là ổn bạn nha.";
+        }
+        else if (systolicRank === "normal" && diastolicRank === "high") {
+            return "Tâm trương của bạn hơi cao một chút dù tâm thu vẫn bình thường. Đây có thể là ảnh hưởng của chế độ ăn mặn, căng thẳng nhẹ hoặc mất ngủ. Không đáng lo nếu chỉ là tạm thời, bạn chỉ cần điều chỉnh sinh hoạt một chút là ổn.";
+        }
+
+        else if (systolicRank === "normal" && diastolicRank === "veryHigh") {
+            return "Tâm trương đang cao rõ rệt, có thể là dấu hiệu tăng huyết áp tâm trương đơn độc. Nếu bạn có cảm giác nặng đầu, mệt mỏi hoặc khó chịu thì nên nghỉ ngơi, ăn nhạt hơn và cân nhắc khám nếu tình trạng lặp lại nha.";
+        }
+        else {
+            return "Trường hợp ngoài mong đợi của huyết áp tâm trương đơn độc, vui lòng thử lại"
+        }
+    }
+
+    function handleMismatchedBP(systolicReuslt, diastolicResult) {
+        if (systolicReuslt !== 'normal' && diastolicResult === 'normal') { return systolicCheckOnly(systolicReuslt, diastolicResult) }
+        else if (systolicReuslt === 'normal' && diastolicResult !== 'normal') { return diastolicCheckOnly(systolicReuslt, diastolicResult) }
     }
 
 
@@ -99,20 +146,21 @@ const BloodPressure = () => {
 
     function checkPulsePressure(pulsePressureResult) {
         if (pulsePressureResult === "veryLow") {
-            return "Hiệu áp cực hẹp, nguy hiểm cần đến bệnh viện";
+            return "⚠️ Hiệu áp hiện hơi hẹp hơn bình thường. Điều này đôi khi gặp ở người huyết áp thấp hoặc thể trạng gầy.Nếu bạn không thấy chóng mặt, mệt hay khó thở thì chưa cần quá lo, chỉ cần nghỉ ngơi đầy đủ và theo dõi thêm là được nha!";
         }
         else if (pulsePressureResult === "low") {
-            return "Hiệu áp hẹp đáng kể, Có thể liên quan đến suy tim, sốc tim, hoặc hẹp động mạch chủ, dẫn đến giảm cung cấp máu đến các cơ quan. Nếu gặp triệu chứng như chóng mặt, mệt mỏi, khó thở, hoặc lạnh tay chân (do thiếu oxy đến mô) vui lòng đến cơ sở y tế gần nhất để được điều trị kịp thời";
+            return "Hiệu áp hơi thấp một chút so với mức lý tưởng. 👉 Không đáng lo nếu bạn vẫn thấy khỏe. Nhớ uống đủ nước, ăn đầy đủ và ngủ nghỉ đúng giờ bạn nhé!";
         }
         else if (pulsePressureResult === "normal") {
-            return "Hiệu áp bình thường";
+            return `👌 Hiệu áp đang ở mức hoàn toàn bình thường. ✨ Cứ duy trì chế độ  sinh hoạt lành mạnh như hiện tại là tuyệt vời rồi đó bạn!`;
         }
 
         else if (pulsePressureResult === "high") {
-            return "Hiệu áp lớn bất thường có thể do tăng huyết áp";
+            return `🧭 Hiệu áp hơi rộng một chút, nhưng thường là do tâm trạng, vận động, hoặc thay đổi sinh hoạt tạm thời.
+            💡 Bạn có thể thư giãn, ngủ sớm hơn và theo dõi thêm vài ngày tới là được nha, không cần lo lắng quá đâu!`;
         }
-        else if (pulsePressureResult === "high") {
-            return "Hiệu áp cực lớn, có thể liên quan do huyết áp tăng nhiều, cần đi khám ngay!!";
+        else if (pulsePressureResult === "veryHigh") {
+            return "⚠️ Hiệu áp đang cao hơn bình thường một chút, nhưng bạn đừng quá lo lắng nha. Một số trường hợp cao tuổi, vận động mạnh hoặc căng thẳng cũng có thể gặp tình trạng này. ✨ Hãy dành thời gian nghỉ ngơi, thư giãn, uống nước ấm và theo dõi lại trong thời gian tới. Nếu vẫn tiếp diễn thì tham khảo ý kiến bác sĩ để yên tâm hơn bạn nhé!";
         }
         else {
             return "Trường hợp ngoài mong đợi của hiệu áp, vui lòng thử lại"
@@ -133,36 +181,6 @@ const BloodPressure = () => {
         return 'unknownBP';
     }
 
-    function BloodPressureCheck(inputValue) {
-        let { tamTruong, tamThu, nhipTim } = inputValue;
-        let str = "";
-        const systolicLevel = getBpLevel(tamThu, rules.systolic);
-        const diastolicLevel = getBpLevel(tamTruong, rules.diastolic);
-        const pulsePressureLevel = getPpLevel(tamThu, tamTruong, rules.difference);
-        const pulsePressureNote = checkPulsePressure(pulsePressureLevel);
-        const heartRateLevel = getHeartRateLevel(nhipTim, rules.heartRate)
-        const hertRateNote = heartRateCheck(heartRateLevel);
-
-        if (systolicLevel === diastolicLevel) {
-            // Cùng nhóm → chẩn đoán thẳng
-            str = systolicAndDiastolicCheck(systolicLevel, diastolicLevel);
-
-        } else {
-            // Không cùng nhóm → các trường hợp cá biệt
-            str = handleMismatchedBP(systolicLevel, diastolicLevel);
-        }
-        setValueBlood(str);
-        setHieuAp(pulsePressureNote);
-        setValue(hertRateNote);
-
-        setSave(prev => {
-            const updated = [...prev, { "dayTime": getDateTime(), "tamThu": tamThu, "tamTruong": tamTruong, "chanDoanHuyetAp": str, "chanDoanHieuAp": pulsePressureNote, "chanDoanNhipTim": hertRateNote }];
-            saveLocalStorage(updated);
-            return updated;
-        });
-
-    }
-
     function getHeartRateLevel(heartRate, ranges) {
         for (let range of ranges) {
             if (
@@ -177,18 +195,59 @@ const BloodPressure = () => {
 
     function heartRateCheck(heartRateResult) {
         if (heartRateResult === "low") {
-            return "Nhịp tim chậm";
+            return "Nhịp tim của bạn đang hơi chậm một chút, nhưng không sao nếu bạn vẫn cảm thấy khỏe mạnh. Một số người tập thể thao hoặc ngủ đủ giấc cũng thường có nhịp tim thấp mà không ảnh hưởng gì. Cứ theo dõi thêm là được nha!";
         }
         else if (heartRateResult === "normal") {
-            return "Nhịp tim bình thường";
+            return "Nhịp tim của bạn đang hoàn toàn bình thường. Cứ giữ vững lối sống lành mạnh như hiện tại là tốt lắm rồi đó!";
         }
         else if (heartRateResult === "high") {
-            return "Nhịp tim nhanh";
+            return "Nhịp tim đang hơi nhanh một chút, có thể do bạn vừa vận động, lo lắng hoặc thiếu ngủ. Hãy nghỉ ngơi, uống nước ấm và theo dõi lại sau một lúc nha. Nếu thường xuyên thấy tim đập nhanh, bạn có thể đi kiểm tra để yên tâm hơn!";
         }
         else {
             return "Trường hợp ngoài mong đợi của nhịp tim, vui lòng thử lại"
         }
     }
+    function handleMixedDeviation() {
+        return `📌 Đây là tình trạng huyết áp không ổn định. Nếu bạn cảm thấy mệt mỏi, chóng mặt, hồi hộp hoặc bất thường khác, hãy gặp nhân viên y tế để được tư vấn.`
+
+    }
+
+    function BloodPressureCheck(inputValue) {
+        let { tamTruong, tamThu, nhipTim } = inputValue;
+        let str = "";
+        const systolicLevel = getBpLevel(tamThu, rules.systolic);
+        const diastolicLevel = getBpLevel(tamTruong, rules.diastolic);
+        const pulsePressureLevel = getPpLevel(tamThu, tamTruong, rules.difference);
+        const pulsePressureNote = checkPulsePressure(pulsePressureLevel);
+        const heartRateLevel = getHeartRateLevel(nhipTim, rules.heartRate)
+        const hertRateNote = heartRateCheck(heartRateLevel);
+
+        if (systolicLevel === diastolicLevel) {
+            // Cùng nhóm → chẩn đoán thẳng
+            str = systolicAndDiastolicCheck(systolicLevel, diastolicLevel);
+
+        } else if ((systolicLevel !== 'normal' && diastolicLevel === 'normal') ||
+            (systolicLevel === 'normal' && diastolicLevel !== 'normal')) {
+            // Không cùng nhóm → các trường hợp cá biệt
+            str = handleMismatchedBP(systolicLevel, diastolicLevel);
+        }
+        else {
+            // Trường hợp lệch kép → Chẩn đoán phức hợp
+            str = handleMixedDeviation();
+        }
+        setValueBlood(str);
+        setHieuAp(pulsePressureNote);
+        setValue(hertRateNote);
+
+        setSave(prev => {
+            const updated = [...prev, { "dayTime": getDateTime(), "tamThu": tamThu, "tamTruong": tamTruong, "nhipTim": nhipTim, "chanDoanHuyetAp": str, "chanDoanHieuAp": pulsePressureNote, "chanDoanNhipTim": hertRateNote }];
+            saveLocalStorage(updated);
+            return updated;
+        });
+
+    }
+
+
     // có thể ghi const formik = useformik ({}) hoặc bóc tách ra luôn để sử dụng các thuộc tính bên trong của formik
     //Trường hợp layout đến từ bên tứ 3 (forbite, antDesign) ko có hỗ trợ thuộc tính như name trong input thì dung setFieldValue để khắc phục
     const { handleSubmit, handleChange, values, setFieldValue, errors, handleBlur, touched, resetForm } = useFormik({
