@@ -35,12 +35,20 @@ const BloodPressure = () => {
 
     function getHistory(arrHistory = save) {
         const result = arrHistory.map((item) => {
-            let { dayTime, tamThu, tamTruong, nhipTim, chanDoanHuyetAp, chanDoanHieuAp, chanDoanNhipTim } = item
+            let { dayTime, thoiDiemChanDoan, tamThu, tamTruong, nhipTim, chanDoanHuyetAp, chanDoanHieuAp, chanDoanNhipTim } = item
             return (
 
                 <div className='mb-3 mt-3'>
                     <span className='fw-bold'>
-                        {`${dayTime}:`}
+                        {`${dayTime}`}
+                    </span>
+                    <span className='fw-bolder'>
+                        {
+                            thoiDiemChanDoan === "banNgay" ? " (Huyết áp ban ngày)" :
+                                thoiDiemChanDoan === "banDem" ? " (Huyết áp ban đêm)" :
+                                    thoiDiemChanDoan === "24h" ? " (Huyết áp 24h)" :
+                                        " (chưa chọn chức năng đo cụ thể)"
+                        }
                     </span>
                     <p>
                         {`Tâm thu: ${tamThu} | Tâm trương: ${tamTruong} | Nhịp tim: ${nhipTim}`}
@@ -168,7 +176,7 @@ const BloodPressure = () => {
     }
 
 
-    const rules = bpThresholds["user"]["day"];
+
     function getBpLevel(inputValue, ranges) {
         for (let range of ranges) {
             if (
@@ -212,8 +220,22 @@ const BloodPressure = () => {
 
     }
 
+    function chonLoai(moment) {
+        if (moment === "banNgay") {
+            return bpThresholds['user']['day']
+        }
+        else if (moment === "banDem") {
+            return bpThresholds['user']['night'];
+        }
+        else {
+            return bpThresholds['user']['24h']
+        }
+    }
+
+
     function BloodPressureCheck(inputValue) {
-        let { tamTruong, tamThu, nhipTim } = inputValue;
+        let { tamTruong, tamThu, nhipTim, thoiDiem } = inputValue;
+        const rules = chonLoai(thoiDiem);
         let str = "";
         const systolicLevel = getBpLevel(tamThu, rules.systolic);
         const diastolicLevel = getBpLevel(tamTruong, rules.diastolic);
@@ -240,7 +262,7 @@ const BloodPressure = () => {
         setValue(hertRateNote);
 
         setSave(prev => {
-            const updated = [...prev, { "dayTime": getDateTime(), "tamThu": tamThu, "tamTruong": tamTruong, "nhipTim": nhipTim, "chanDoanHuyetAp": str, "chanDoanHieuAp": pulsePressureNote, "chanDoanNhipTim": hertRateNote }];
+            const updated = [...prev, { "dayTime": getDateTime(), "thoiDiemChanDoan": thoiDiem, "tamThu": tamThu, "tamTruong": tamTruong, "nhipTim": nhipTim, "chanDoanHuyetAp": str, "chanDoanHieuAp": pulsePressureNote, "chanDoanNhipTim": hertRateNote }];
             saveLocalStorage(updated);
             return updated;
         });
@@ -254,7 +276,8 @@ const BloodPressure = () => {
         initialValues: {
             tamThu: "",
             tamTruong: "",
-            nhipTim: ""
+            nhipTim: "",
+            thoiDiem: ""
         },
         onSubmit: (values) => {
             BloodPressureCheck(values);
@@ -267,7 +290,9 @@ const BloodPressure = () => {
         validationSchema: yup.object({
             tamThu: yup.string().required("Vui lòng không bỏ trống Tâm Thu").matches(/^(5[1-9]|[6-9][0-9]|1[0-9]{2})$/, "Vui lòng nhập số và phải hợp lệ [51-199]"),
             tamTruong: yup.string().required("Vui lòng không bỏ trống tâm trương").matches(/^(?:4[1-9]|[5-9]\d|1[01]\d)$/, "Vui lòng nhập số và phải hợp lệ [41-119]"),
-            nhipTim: yup.string().required("Vui lòng không bỏ trống nhịp tim").matches(/^(?:3[1-9]|[4-9]\d|[12]\d{2})$/, "Vui lòng nhập số và phải hợp lệ [31 đến 299]")
+            nhipTim: yup.string().required("Vui lòng không bỏ trống nhịp tim").matches(/^(?:3[1-9]|[4-9]\d|[12]\d{2})$/, "Vui lòng nhập số và phải hợp lệ [31 đến 299]"),
+            thoiDiem: yup.string().oneOf(['banNgay', 'banDem', '24h'], 'Vui lòng chọn trước khi submit')
+                .required('Vui lòng chọn thời điểm đo')
         })
     });
 
@@ -290,8 +315,6 @@ const BloodPressure = () => {
         return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
     }
 
-
-
     return (
         <>
             <Breadcrumb homeUrl={"/"} currentUrl={""} homeContent={"Trang chủ"} currentContent={"Blood Pressure"} bgColor={"rgba(255,255,255,0.3)"} color={"#29274C"} position='absolute' />
@@ -306,6 +329,18 @@ const BloodPressure = () => {
                                 <InputCustom labelContent={"Nhập huyết áp tâm trương"} smallContent={"Là số nhỏ, nằm sau và không vượt quá 100"} id={"tamTruong"} name={"tamTruong"} onChange={handleChange} value={values.tamTruong} onBlur={handleBlur} error={errors.tamTruong} touched={touched.tamTruong} />
 
                                 <InputCustom labelContent={"Nhập nhịp tim"} smallContent={"Nhịp tim đo được của thiết bị đo"} id={"nhipTim"} name={"nhipTim"} onChange={handleChange} value={values.nhipTim} onBlur={handleBlur} error={errors.nhipTim} touched={touched.nhipTim} />
+
+                                <div className="mb-5">
+                                    <label htmlFor="thoiDiem" className="form-label">Thời điểm đo</label>
+                                    <select className="form-select form-select-lg" name="thoiDiem" id="thoiDiem" value={value.thoiDiem} onChange={handleChange} onBlur={handleBlur}>
+                                        <option value="" defaultChecked >Vui lòng chọn thời điểm đo</option>
+                                        <option value={"banNgay"}>Ban ngày</option>
+                                        <option value={"banDem"}>Ban đêm</option>
+                                        <option value={"24h"}>24h</option>
+                                    </select>
+                                    {touched && errors.thoiDiem ? <p className='text-danger'>{errors.thoiDiem}</p> : null}
+                                </div>
+
 
                                 <div className='text-center mb-4 d-flex justify-content-evenly align-items-center gap-2'>
                                     <button type='submit' className='btn btn-outline-dark w-50 d-sm-inline-block mx-sm-2 mb-3'>Kiểm tra</button>
