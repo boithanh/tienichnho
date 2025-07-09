@@ -5,7 +5,7 @@ body .blood-pressure {
     background: linear-gradient(to top, #a18cd1, #fbc2eb);
     background-size: cover;
     min-height: 100vh;
-    color: #29274C;
+    color: #276FBF;
 
     h1 {
         font-family: "Pacifico", cursive;
@@ -85,8 +85,13 @@ body .blood-pressure {
                 padding-left: 15px;
             }
         }
+    }
 
-
+    .form-select {
+        @extend .form-control;
+        padding: 6px 12px;
+        font-family: $font_1;
+        font-size: 15px;
     }
 
     .form-container {
@@ -115,7 +120,7 @@ body .blood-pressure {
         }
 
         @media screen and (max-width: 450px) {
-            padding: 40px 25px;
+            padding: 40px 10px;
         }
     }
 

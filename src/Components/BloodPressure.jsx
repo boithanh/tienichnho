@@ -20,6 +20,7 @@ const BloodPressure = () => {
     const [animate, setAnimate] = useState(false);
     const containerRef = useRef(null); // Tạo ref cho div chứa HTML
     const divRef = useRef(null);
+    const scrollToTop = useRef(null);
 
     useEffect(() => {
         if (containerRef.current) {
@@ -34,7 +35,8 @@ const BloodPressure = () => {
     }, []);
 
     function getHistory(arrHistory = save) {
-        const result = arrHistory.map((item) => {
+        const arrReversed = arrHistory.slice().reverse();
+        const result = arrReversed.map((item) => {
             let { dayTime, thoiDiemChanDoan, tamThu, tamTruong, nhipTim, chanDoanHuyetAp, chanDoanHieuAp, chanDoanNhipTim } = item
             return (
 
@@ -47,20 +49,26 @@ const BloodPressure = () => {
                             thoiDiemChanDoan === "banNgay" ? " (Huyết áp ban ngày)" :
                                 thoiDiemChanDoan === "banDem" ? " (Huyết áp ban đêm)" :
                                     thoiDiemChanDoan === "24h" ? " (Huyết áp 24h)" :
-                                        " (chưa chọn chức năng đo cụ thể)"
+                                        " (Chưa có chức năng này)"
                         }
                     </span>
                     <p>
-                        {`Tâm thu: ${tamThu} | Tâm trương: ${tamTruong} | Nhịp tim: ${nhipTim}`}
+                        <span>Kết quả: </span>
+                        <span className='fw-bold'>{`${tamThu}/${tamTruong} - `}</span>
+                        <span>Nhịp tim: </span>
+                        <span className='fw-bold'>{`${nhipTim}`}</span>
                     </p>
                     <p>
-                        {`${chanDoanHuyetAp}`}
+                        <span className='fw-bold'>Huyết áp: </span>
+                        {`${chanDoanHuyetAp ? chanDoanHuyetAp : "Chưa có dữ liệu chẩn đoán"}`}
                     </p>
                     <p>
-                        {`${chanDoanHieuAp}`}
+                        <span className='fw-bold'>Hiệu áp: </span>
+                        {`${chanDoanHieuAp ? chanDoanHuyetAp : "Chưa có dữ liệu chẩn đoán"}`}
                     </p>
                     <p>
-                        {`${chanDoanNhipTim}`}
+                        <span className='fw-bold'>Nhịp tim: </span>
+                        {`${chanDoanNhipTim ? chanDoanNhipTim : "Chưa có dữ liệu chẩn đoán"}`}
                     </p>
 
                 </div>
@@ -318,7 +326,7 @@ const BloodPressure = () => {
     return (
         <>
             <Breadcrumb homeUrl={"/"} currentUrl={""} homeContent={"Trang chủ"} currentContent={"Blood Pressure"} bgColor={"rgba(255,255,255,0.3)"} color={"#29274C"} position='absolute' />
-            <div className='container-fluid blood-pressure position-relative'>
+            <div className='container-fluid blood-pressure position-relative' ref={scrollToTop}>
                 <div className="row">
                     <h1 className='fs-10 mb-4 p-2 text-center mt-5 z-2'>Kiểm tra thông số huyết áp</h1>
                     <div className='col-xl-5 mx-auto'>
@@ -361,15 +369,32 @@ const BloodPressure = () => {
                                     </div>
                                 </div>
                             </form>
-                            <div className={`${save.length > 0 ? "d-flex" : "d-none"} justify-content-center mb-5`}><button className='btn btn-outline-light' onClick={() => { getHistory() }}>Xem lại lịch sử đo</button></div>
-                            <div className='rounded-3 p-2 opacity-75 mb-3'>
+                            <div className={`${save.length > 0 ? "d-flex" : "d-none"} justify-content-center mb-5`}><button className='btn btn-outline-light' onClick={() => {
+                                getHistory();
+                                if (divRef.current) {
+                                    divRef.current.scrollIntoView({
+                                        behavior: 'smooth', // Cuộn mượt mà (thay vì nhảy tức thì)
+                                        block: 'start',     // Căn chỉnh phần tử ở đầu viewport (có thể là 'center', 'end', 'nearest')
+                                        inline: 'nearest'   // Căn chỉnh theo chiều ngang (thường ít dùng cho cuộn dọc)
+                                    });
+                                }
+                            }}>Xem lại lịch sử đo</button></div>
+                            <div className='rounded-3 p-2 opacity-75 mb-3' ref={divRef}>
                                 {history}
                             </div>
 
                             <div className='note'>
                                 <p>*** Lưu ý: Đo tại nhà thường có sai số, nếu kết quả đo bất thường trên 2 lần hoặc huyết áp bất thường vui lòng đến trạm y tế hoặc bệnh viện gần nhất để được thăm khám kịp thời</p>
                             </div>
-
+                            <div className='text-end'><button onClick={() => {
+                                if (scrollToTop.current) {
+                                    scrollToTop.current.scrollIntoView({
+                                        behavior: 'smooth', // Cuộn mượt mà (thay vì nhảy tức thì)
+                                        block: 'start',     // Căn chỉnh phần tử ở đầu viewport (có thể là 'center', 'end', 'nearest')
+                                        inline: 'nearest'   // Căn chỉnh theo chiều ngang (thường ít dùng cho cuộn dọc)
+                                    });
+                                }
+                            }}>🚀</button></div>
                         </div>
                     </div>
                 </div>

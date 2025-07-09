@@ -1,20 +1,14 @@
 import React, { useState } from 'react'
 import { defaultLottery, generateRandomNumbers } from '../utils/utils';
 import { NavLink } from 'react-router-dom';
+import Breadcrumb from './Breadcrumb/Breadcrumb';
 
 const DefaultLottery = () => {
     const [numberDefault, setNumberDefault] = useState([]);
     const [animate, setAnimate] = useState(false);
     return (
         <>
-            <nav className="breadcrumb z-3 w-100">
-                <NavLink to="/" className={({ isActive, isPending }) => {
-                    return "breadcrumb-item " + (isActive ? "active" : "") + (isPending ? "pending" : "")
-                }} aria-current="page">Trang Chủ</NavLink>
-                <NavLink to="/random-default-lottery" className={({ isActive, isPending }) => {
-                    return "breadcrumb-item " + (isActive ? "active" : "") + (isPending ? "pending" : "")
-                }} aria-current="page">Lotery random</NavLink>
-            </nav>
+            <Breadcrumb homeUrl={"/"} currentUrl={""} homeContent={"Trang chủ"} currentContent={"Random DefaultLottery (vé số kiến thiết)"} bgColor={"rgba(255,255,255,0.3)"} color={"black"} />
             <div className="container">
                 <div className="row">
                     <div className="col-xl-12">
