@@ -26,6 +26,12 @@ const BloodPressure = () => {
         if (containerRef.current) {
             containerRef.current.innerHTML = createRandomSquares(15); // Thêm HTML vào DOM
         }
+        scrollToTop.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest'
+        });
+
     }, []); // Dependency array rỗng -> không chạy lại khi nhập input
 
     useEffect(() => {
@@ -40,7 +46,7 @@ const BloodPressure = () => {
             let { dayTime, thoiDiemChanDoan, tamThu, tamTruong, nhipTim, chanDoanHuyetAp, chanDoanHieuAp, chanDoanNhipTim } = item
             return (
 
-                <div className='mb-3 mt-3'>
+                <div className='mb-3 mt-3 text-black'>
                     <span className='fw-bold'>
                         {`${dayTime}`}
                     </span>
@@ -64,7 +70,7 @@ const BloodPressure = () => {
                     </p>
                     <p>
                         <span className='fw-bold'>Hiệu áp: </span>
-                        {`${chanDoanHieuAp ? chanDoanHuyetAp : "Chưa có dữ liệu chẩn đoán"}`}
+                        {`${chanDoanHieuAp ? chanDoanHieuAp : "Chưa có dữ liệu chẩn đoán"}`}
                     </p>
                     <p>
                         <span className='fw-bold'>Nhịp tim: </span>
