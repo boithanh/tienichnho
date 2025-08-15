@@ -11,8 +11,18 @@
         backdrop-filter: blur(25px);
         -webkit-backdrop-filter: blur(5px);
         border: 1px solid rgba(255, 255, 255, 0.3);
+    }
 
-        
+    .books-background{
+      img{
+        position: absolute;
+        top:0;
+        left:0;
+        object-fit: cover;
+        width: 100%;
+        height:100%;
+        object-position: bottom;
+      }
     }
     .books-content{
         box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;

@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { BookOpen, BookmarkCheck } from "lucide-react";
 import useResponsive from '../hooks/useResponsive';
 import Breadcrumb from './Breadcrumb/Breadcrumb';
@@ -201,13 +201,34 @@ const BookJourneyDiary = () => {
         tablet: 768,
         desktop: 1024
     })
+
+//     useEffect(() => {
+//     books.forEach(src => {
+//         const{image}=src
+//       const img = new Image();
+//       img.src = image;
+//     });
+//   }, []);
+
     return (
         <>
             <Breadcrumb homeUrl={"/"} currentUrl={""} homeContent={"Trang chủ"} currentContent={"Book Journey Diary"} bgColor={"black"} color={"white"} />
-            <div className="container-fluid books" style={{background:`url("${book.image}")`,
-             backgroundRepeat:"no-repeat", 
-             backgroundSize:"cover"     
-             }}>
+            <div className="container-fluid books position-relative">
+       <div className='books-background'>
+<AnimatePresence mode="wait">
+  <motion.img
+    key={book.image}
+    src={book.image}
+    alt=""
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 0.5 }}
+  />
+</AnimatePresence>
+        </div>         
+
+  
                 <div className="overlay">
                 </div>
                 <div className="row">
