@@ -4,19 +4,18 @@ import { motion } from "framer-motion";
 import { BookOpen, BookmarkCheck } from "lucide-react";
 import useResponsive from '../hooks/useResponsive';
 import Breadcrumb from './Breadcrumb/Breadcrumb';
-import smcskt from './../assets/image/books/CamScanner 13-8-25 20.09_1.jpeg';
 import { path } from '../common/path';
 const books = [
     {
         id: 1,
         title: "Sức mạnh của sự kiên trì",
-        skill: "Self-help, tâm lý ứng dụng",
+        skill: "Tâm Lý & Khoa Học Ứng Dụng",
         color: "from-yellow-200 to-pink-200",
         image: "books/CamScanner 13-8-25 20.09_1.jpeg",
         animation: "fade-in",
         progress: 82,
         notes: [
-            "Tôi không phải là người lạc quan, vì tôi không chắc mọi chuyện sẽ có một kết thúc có hậu; tôi không phải là người bi quan, vì tôi không chắc mọi chuyện sẽ có một kết thúc tồi tệ. Tôi chỉ có hy vọng thôi... - Nhà văn Séc Havel"
+            "Kiên trì không phải là chạy nước rút, mà là marathon không vạch đích."
         ]
     },
     {
@@ -28,9 +27,8 @@ const books = [
         animation: "fade-in",
         progress: 100,
         notes: [
-           "Lý thuyết trò chơi là bách khoa toàn thư về tâm lý học, về tẩy não và chống lại tẩy não, thao túng và chống lại thao túng, thống trị và chống lại thống trị",
-           "Cuốn sách giới thiệu công thức chiến thắng cho những 'trò chơi' đấu trí giữa người với người trong cuộc sống hằng ngày",
-           "Phân tách các khái niệm lý thuyết trò chơi vốn mơ hồ trở thành ngôn ngữ dễ hiểu và kết nối liền mạch với nghệ thuật tâm lý học; cho phép bạn nắm vững những bí ẩn của trò chơi tâm lý trong thời gian ngắn nhất."
+           "Hiểu luật chơi là bước đầu tiên để trở thành người thiết kế luật chơi",
+           "Trong mọi cuộc chơi, người thông minh không chọn điều tốt nhất cho mình – mà chọn điều khiến đối thủ không thể giành lợi thế."
         ],
     },
     {
@@ -42,127 +40,154 @@ const books = [
         animation: "fade-in",
         progress: 100,
         notes: [
-            "Các chuyên gia đã thiết kế những phương pháp, nguyên tắc học tập thông minh và tốt nhất hiện nay, nhằm mang lại một giải pháp đột phá và tác động tích cực cho nền giáo dục Việt Nam.",
-            "Cuốn sách này được dịch sang nhiều thứ tiếng và bán chạy tại hơn 25 quốc gia, được sử dụng trong các trường Đại học quốc tế danh giá"
+            "Học thông minh quan trọng hơn học nhiều – chất lượng đánh bại số lượng."
         ]
     },
     {
         id: 4,
         title: "Đắc nhân tâm",
-        skill: "Kinh điển về kỹ năng mềm",
+        skill: "Tâm Lý & Khoa Học Ứng Dụng",
         color: "from-indigo-200 to-blue-200",
         image: "books/CamScanner 13-8-25 20.56_1.jpeg",
         animation: "fade-in",
         progress: 100,
         notes: [
-            "Đắc Nhân Tâm - How to Win Friends and Influence People của Dale Carnegie là tác phẩm nổi tiếng nhất thế giới và có tầm ảnh hưởng mạnh mẽ nhất của mọi thời đại. Cuốn sách đã được chuyển ngữ sang hầu hết các thứ tiếng trên thế giới và có mặt ở hàng trăm quốc gia. Đây là cuốn sách liên tục đứng đầu danh mục sách bán chạy nhất (Best-selling Books) do báo The New York Times bình chọn suốt mười năm liền. Tác phẩm có sức lan tỏa vô cùng rộng lớn - dù bạn đi đến bất cứ đâu, bất kỳ quốc gia nào cũng đều có thể nhìn thấy. Tác phẩm được đánh giá là cuốn sách đầu tiên và hay nhất về thể loại này, có ảnh hưởng làm thay đổi cuộc đời hàng triệu người trên thế giới.First News trân trọng giới thiệu đến bạn đọc Việt Nam ấn bản được cập nhật, bổ sung đầy đủ nhất."
+            "Thành công bắt đầu từ việc hiểu người khác trước khi mong họ hiểu mình"
         ]
     },
     {
         id: 5,
         title: "Khi ta thay đổi thế giới sẽ đổi thay",
-        skill: "Self-help, Phát triển cá nhân",
+        skill: "Phát Triển Bản Thân & Tư Duy",
         color: "from-indigo-200 to-blue-200",
         image: "books/CamScanner 13-8-25 20.55_1 2.jpeg",
         animation: "fade-in",
         progress: 100,
         notes: [
-            "Cách chúng ta suy nghĩ, cách chúng ta nhìn nhận về bản thân mình và người khác - cả về thể chất, trí tuệ, tinh thần lẫn tình cảm - cùng với cách chúng ta trải nghiệm cuộc sống sẽ quyết định ta là ai. Chúng ta có đủ khôn ngoan hay không? Chúng ta có đang sống với niềm tin vững vàng trong tim hay không? Chúng ta có đang để nỗi sợ kiểm soát hành động của mình không? Chúng ta phải làm gì để thay đổi cuộc sống của mình cho tốt đẹp hơn? Quyển sách nhỏ này sẽ giúp bạn tìm được câu trả lời."
+            "Bạn không thể thay đổi cuộc đời nếu cứ mãi giữ những suy nghĩ cũ."
         ]
     },
     {
         id: 6,
         title: "Mặc kệ thiên hạ - Sống như người Nhật",
-        skill: "Văn hóa Nhật, Lối sống tối giản",
+        skill: "Kỹ Năng Sống & Lối Sống",
         color: "from-indigo-200 to-blue-200",
         image: "books/CamScanner 13-8-25 20.25_1.jpeg",
         animation: "fade-in",
         progress: 100,
         notes: [
-            "Khi mùa đông lạnh lẽo vừa qua đi, mùa xuấn ấm áp sẽ đến. Giây phút bạn chấp nhận từ bỏ và gạt đi định kiến của người khác, sống bằng chính kiến của bản thân sẽ là thời điểm bạn thấy tâm hồn mình thanh thản."
+            "Sống cho mình, đừng sống vì ánh mắt người khác."
         ]
     },
     {
         id: 7,
         title: "Tư duy mở",
-        skill: "Tư duy phản biện, Tư duy sáng tạo",
+        skill: "Phát Triển Bản Thân & Tư Duy",
         color: "from-indigo-200 to-blue-200",
         image: "books/CamScanner 13-8-25 20.22_1.jpeg",
         animation: "fade-in",
         progress: 100,
         notes: [
-            "Rèn luyện tư duy mở sẽ mang đến rất nhiều lợi ích khác nhau trong cuộc sống cũng như công việc của một người. Có thế kế đến như: Mang đến cái nhìn sâu sắc hơn về cuộc sống. Một người có tư duý mở sẽ không ngừng tiếp thu những kiến thức, ý tưởng mới. Thông qua đó sẽ nâng cao hiểu biết về con người, thế giới xung quanh cũng như hoàn thiện bản thân tôt hơn.",
-            "Có cơ hội trải nghiệm nhiều điều mới mẻ, Khi sẵn sàng đón nhận mọi thú với tâm thế cởi mở, sẽ có nhiều cơ hội trải nghiệm những điều mới, vượt qua giới hạn của bạn thân và có cuộc sống nhiều màu sắc hơn. Phát triển bản thân. Giữ tâm trí cởi mở sẽ giúp bạn không ngừng học hỏi, phát triển bản thân mà không bận tâm quá nhiều về vấn đề tuổi tác.",
-            "Mạnh mẽ về mặt tinh thần. Luôn cởi mở và sẵn sàng đón nhận những điều mới mẻ có thể giúp bạn trở nên mạnh mẽ, sôi nối hơn. Lạc quan hơn trong cuộc sống. Người cởi mở thường ít có suy nghĩ tiêu cực bởi họ luôn không ngừng tìm hiểu để giải quyết vấn đề mình đang gặp phải thay vì tự kìm hãm bản thân."
+            "Tư duy hẹp giới hạn bạn, tư duy mở mở ra cả thế giới."
         ]
     },
     {
         id: 8,
         title: "Nghệ Thuật từ chối",
-        skill: "Kỹ năng giao tiếp, Quản lý thời gian",
+        skill: "Kỹ Năng Sống & Lối Sống",
         color: "from-indigo-200 to-blue-200",
         image: "books/CamScanner 13-8-25 20.21_1 2.jpeg",
         animation: "fade-in",
         progress: 100,
         notes: [
-            "Từ chối người khác là một trong những kỹ năng quan trọng nhất mà bạn cần xây dựng. Nó giải phóng bạn, giúp bạn theo đuổi những lợi ích của mình, cả về phương diện cá nhân lẫn công việc. Với mục đích đó, nó sẽ nâng cao hiệu quả làm việc, cải thiện các mối quan hệ của bạn và mang đến cho bạn sự tự tin và yên bình mà bạn có thể thấy xa lạ vào lúc này.",
-            "Sự khác biệt giữa người thành công và người rất thành công là người rất thành công nói 'không' với hầu hết mọi việc"
+            "Nói 'không' đúng cách là cách bạn nói 'có' với cuộc đời mình."
         ]
     },
     {
         id: 9,
         title: "Bí Ẩn của sự may mắn",
-        skill: "Tâm lý học, Luật hấp dẫn",
+        skill: "Tâm Lý & Khoa Học Ứng Dụng",
         color: "from-indigo-200 to-blue-200",
         image: "books/CamScanner 13-8-25 20.19_1.jpeg",
         animation: "fade-in",
         progress: 100,
         notes: [
-            "Tại sao có những người sống một đời thành công và hành phúc trong khi những người khác lại chỉ toàn đối mặt với thất bại?",
-            "Tại sao có những người tìm được người bạn đời lý tưởng trong khi những người khác cứ kéo lê hết mối quan hệ đổ vỡ này đến mối quan hệ đổ vỡ khác?",
-            "Điều gì làm cho một số người có được nghề nghiệp thành công trong khi những người khác cứ phải làm những việc mà mình chán ghét?",
-            "Vậy những người không may có thể cải thiện vận may và cuộc đời mình được không? Câu trả lời là được."
+            "May mắn không phải là ngẫu nhiên, mà là kết quả của tư duy và hành động."
         ]
     },
     {
         id: 10,
         title: "Gian Nan đừng vội nản",
-        skill: "Động lực, Vượt khó",
+        skill: "Phát Triển Bản Thân & Tư Duy",
         color: "from-indigo-200 to-blue-200",
         image: "books/CamScanner 13-8-25 20.17_1.jpeg",
         animation: "fade-in",
         progress: 100,
         notes: [
-            "Nếu quả đất vẫn tiếp tục quay mà bạn phải đi đến kết thúc...",
-            "Nếu bạn đang tìm kiếm ánh sáng mặt trời mà tất cả những gì bạn nhìn thấy là bóng đêm tối mịt...",
-            "Nếu tất cả xung quanh bạn là những niềm vui mà riêng với bạn chỉ là nỗi buồn...",
-            "Nếu bạn đang quá sức mệt mỏi mà cuộc sống lại tiếp tục quật ngã bạn...",
-            "Nếu bạn khóc...",
-            "Thì bạn hãy nghĩ những giọt nước mắt của bạn rơi xuống đất đã làm nên điều kỳ diệu: vẻ đẹp của những bông hoa như sự dịu dàng trên tay bạn."
+            "Khó khăn là lớp học vĩ đại nhất, nhưng phần thưởng chỉ dành cho người không bỏ cuộc."
         ]
     },
     {
         id: 11,
         title: "Nghệ thuật từ bỏ thói quen xấu",
-        skill: "Tâm lý học hành vi, Thay đổi thói quen",
+        skill: "Kỹ Năng Sống & Lối Sống",
         color: "from-indigo-200 to-blue-200",
         image: "books/CamScanner 13-8-25 20.15(1)_1.jpeg",
         animation: "fade-in",
         progress: 100,
         notes: [
-            "Dành cho những bạn đang trong tình trạng 'Mình lại thế nửa rồi...'"
+            "Thói quen xấu là kẻ thù thầm lặng - đánh bại nó bằng hành động nhỏ mỗi ngày"
         ]
     },
     {
         id: 12,
         title: "Sức Mạnh Của Sự Kỷ Luật",
-        skill: "Kỹ năng sống, động lực.",
+        skill: "Tâm Lý & Khoa Học Ứng Dụng",
         color: "from-indigo-200 to-blue-200",
         image: "books/CamScanner 13-8-25 20.14_1.jpeg",
         animation: "fade-in",
         progress: 100,
         notes: [
-            "Trí thông minh bẩm sinh giống như những cái vuốt sắc được ban tặng cho những con hổ nhưng nếu những con hổ không rèn luyện, không nỗ lực thì chúng cũng có thể bị chết đói vì không săn được mồi. Để có được phong thái ung dung của chúa tể rừng xanh những con hổ cũng phải tập luyện không ngừng, mỗi ngày đều phải chạy nhanh và nhanh hơn nữa so với ngày hôm trước để có thể đuổi kịp những con mồi. Nếu buông thả bản thân trong sự thoải mái thì những con hổ sớm muộn gì cũng sẽ bị những con vật khác ăn thịt và những cái vuốt sắc kia sẽ chỉ còn đơn thuần giống như vật trang trí không có tác dụng."
+            "Kỷ luật là cầu nối giữa ước mơ và hiện thực."
+        ]
+    },
+    {
+          id: 13,
+        title: "Người Nam Châm",
+        skill: "Luật hấp dẫn & Tư duy tích cực",
+        color: "from-indigo-200 to-blue-200",
+        image: "books/Screenshot 2025-08-15 155526.png",
+        animation: "fade-in",
+        progress: 100,
+        notes: [
+            "Bạn không thu hút điều bạn muốn - bạn thu hút điều bạn tin mình xứng đáng.",
+            "Năng lượng tích cực là thỏi nam châm mạnh nhất vũ trụ – hãy sạc đầy nó mỗi ngày."
+        ]
+    },
+    {
+          id: 14,
+        title: "38 Bức Thư Rockefeller Gửi Cho Con Trai",
+        skill: "Tầm nhìn, kỷ luật thép và tư duy doanh ",
+        color: "from-indigo-200 to-blue-200",
+        image: "books/38 la thu.png",
+        animation: "fade-in",
+        progress: 100,
+        notes: [
+            "Thành công bắt đầu từ thói quen nhỏ: đúng giờ, giữ lời, và luôn học hỏi kẻ thù.",
+            "Kẻ mạnh không sợ thất bại - họ sợ sự tự mãn sau chiến thắng."
+        ]
+    },
+    {
+          id: 15,
+        title: "Cây cam ngọt của tôi",
+        skill: "Tiểu thuyết văn học • Tự sự • Hồi ký tuổi thơ",
+        color: "from-indigo-200 to-blue-200",
+        image: "books/Screenshot 2025-08-15 160216.png",
+        animation: "fade-in",
+        progress: 100,
+        notes: [
+             "🌳 Đôi khi, những điều bé nhỏ nhất – một cái cây, một người bạn – lại dạy ta bài học lớn nhất về tình yêu và nỗi đau.",
+             "🍊 Trái tim trẻ thơ như trái cam ngọt: có vị ngọt của hy vọng, nhưng cũng ẩn chút chua chát của cuộc đời."
         ]
     }
     
@@ -194,11 +219,16 @@ const BookJourneyDiary = () => {
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ duration: 0.6 }}
                                 className={`position-relative books-content ${book.color} ${responsive.mobile ? "w-100" : "w-50"}`}>
-                                <h2 className="rounded-5 fs-2 bold mb-2 d-flex align-items-center gap-2">
-                                    <BookOpen /> {book.title}
-                                </h2>
+                                    <div className="justify-content-start d-flex align-items-center gap-3">
+                                         <BookOpen />
+                                              <h2 className="rounded-5 fs-2 bold mb-2 d-flex align-items-center gap-2">
+                                    {book.title}
+                                            </h2>
+                                    </div>
+                                <div>
                                 <p className="italic text-sm mb-4">{book.skill}</p>
-                                <div className='col-7 mx-auto'>
+                                </div>  
+                                <div className={`mx-auto text-center ${responsive.mobile?"col-12":"col-7"}`}>
                                     <img src={book.image} alt={book.title} className="rounded-5 object-fit-cover mb-4 accordion" />
                                       <div className="wrapper">
   <div className="cube">

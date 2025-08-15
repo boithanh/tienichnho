@@ -19,8 +19,9 @@
         border-radius: 2rem;
         padding: 50px;
         overflow: hidden;
+        background-color: rgba(255,255,255,0.2);
         @media screen and (max-width:431px) {
-            padding: 20px;
+            padding: 25px;
         }
         ul{
             li{
@@ -29,11 +30,10 @@
             }
         }
         img{
-            height: 100%;
             max-width: 100%;
             user-select: none;
-             @media screen and (max-width:431px) {
-            height: 100%;
+            @media screen and (max-width:431px) {
+              max-height:250px;
             }
         }
 
