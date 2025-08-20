@@ -4,194 +4,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { BookOpen, BookmarkCheck } from "lucide-react";
 import useResponsive from '../hooks/useResponsive';
 import Breadcrumb from './Breadcrumb/Breadcrumb';
-import { path } from '../common/path';
-const books = [
-    {
-        id: 1,
-        title: "Sức mạnh của sự kiên trì",
-        skill: "Tâm Lý & Khoa Học Ứng Dụng",
-        color: "from-yellow-200 to-pink-200",
-        image: "books/CamScanner 13-8-25 20.09_1.jpeg",
-        animation: "fade-in",
-        progress: 82,
-        notes: [
-            "Kiên trì không phải là chạy nước rút, mà là marathon không vạch đích."
-        ]
-    },
-    {
-        id: 2,
-        title: "Lý thuyết trò chơi",
-        skill: "Tâm lý học",
-        color: "from-indigo-200 to-blue-200",
-        image: "books/CamScanner 13-8-25 21.07_2.jpeg",
-        animation: "fade-in",
-        progress: 100,
-        notes: [
-           "Hiểu luật chơi là bước đầu tiên để trở thành người thiết kế luật chơi",
-           "Trong mọi cuộc chơi, người thông minh không chọn điều tốt nhất cho mình – mà chọn điều khiến đối thủ không thể giành lợi thế."
-        ],
-    },
-    {
-        id: 3,
-        title: "Bí Quyết Để Học Ít - Hiểu Nhiều - Nhớ Lâu - Hiệu Quả ",
-        skill: "Kỹ năng học thuật",
-        color: "from-indigo-200 to-blue-200",
-        image: "books/CamScanner 13-8-25 20.57(1)_1.jpeg",
-        animation: "fade-in",
-        progress: 100,
-        notes: [
-            "Học thông minh quan trọng hơn học nhiều – chất lượng đánh bại số lượng."
-        ]
-    },
-    {
-        id: 4,
-        title: "Đắc nhân tâm",
-        skill: "Tâm Lý & Khoa Học Ứng Dụng",
-        color: "from-indigo-200 to-blue-200",
-        image: "books/CamScanner 13-8-25 20.56_1.jpeg",
-        animation: "fade-in",
-        progress: 100,
-        notes: [
-            "Thành công bắt đầu từ việc hiểu người khác trước khi mong họ hiểu mình"
-        ]
-    },
-    {
-        id: 5,
-        title: "Khi ta thay đổi thế giới sẽ đổi thay",
-        skill: "Phát Triển Bản Thân & Tư Duy",
-        color: "from-indigo-200 to-blue-200",
-        image: "books/CamScanner 13-8-25 20.55_1 2.jpeg",
-        animation: "fade-in",
-        progress: 100,
-        notes: [
-            "Bạn không thể thay đổi cuộc đời nếu cứ mãi giữ những suy nghĩ cũ."
-        ]
-    },
-    {
-        id: 6,
-        title: "Mặc kệ thiên hạ - Sống như người Nhật",
-        skill: "Kỹ Năng Sống & Lối Sống",
-        color: "from-indigo-200 to-blue-200",
-        image: "books/CamScanner 13-8-25 20.25_1.jpeg",
-        animation: "fade-in",
-        progress: 100,
-        notes: [
-            "Sống cho mình, đừng sống vì ánh mắt người khác."
-        ]
-    },
-    {
-        id: 7,
-        title: "Tư duy mở",
-        skill: "Phát Triển Bản Thân & Tư Duy",
-        color: "from-indigo-200 to-blue-200",
-        image: "books/CamScanner 13-8-25 20.22_1.jpeg",
-        animation: "fade-in",
-        progress: 100,
-        notes: [
-            "Tư duy hẹp giới hạn bạn, tư duy mở mở ra cả thế giới."
-        ]
-    },
-    {
-        id: 8,
-        title: "Nghệ Thuật từ chối",
-        skill: "Kỹ Năng Sống & Lối Sống",
-        color: "from-indigo-200 to-blue-200",
-        image: "books/CamScanner 13-8-25 20.21_1 2.jpeg",
-        animation: "fade-in",
-        progress: 100,
-        notes: [
-            "Nói 'không' đúng cách là cách bạn nói 'có' với cuộc đời mình."
-        ]
-    },
-    {
-        id: 9,
-        title: "Bí Ẩn của sự may mắn",
-        skill: "Tâm Lý & Khoa Học Ứng Dụng",
-        color: "from-indigo-200 to-blue-200",
-        image: "books/CamScanner 13-8-25 20.19_1.jpeg",
-        animation: "fade-in",
-        progress: 100,
-        notes: [
-            "May mắn không phải là ngẫu nhiên, mà là kết quả của tư duy và hành động."
-        ]
-    },
-    {
-        id: 10,
-        title: "Gian Nan đừng vội nản",
-        skill: "Phát Triển Bản Thân & Tư Duy",
-        color: "from-indigo-200 to-blue-200",
-        image: "books/CamScanner 13-8-25 20.17_1.jpeg",
-        animation: "fade-in",
-        progress: 100,
-        notes: [
-            "Khó khăn là lớp học vĩ đại nhất, nhưng phần thưởng chỉ dành cho người không bỏ cuộc."
-        ]
-    },
-    {
-        id: 11,
-        title: "Nghệ thuật từ bỏ thói quen xấu",
-        skill: "Kỹ Năng Sống & Lối Sống",
-        color: "from-indigo-200 to-blue-200",
-        image: "books/CamScanner 13-8-25 20.15(1)_1.jpeg",
-        animation: "fade-in",
-        progress: 100,
-        notes: [
-            "Thói quen xấu là kẻ thù thầm lặng - đánh bại nó bằng hành động nhỏ mỗi ngày"
-        ]
-    },
-    {
-        id: 12,
-        title: "Sức Mạnh Của Sự Kỷ Luật",
-        skill: "Tâm Lý & Khoa Học Ứng Dụng",
-        color: "from-indigo-200 to-blue-200",
-        image: "books/CamScanner 13-8-25 20.14_1.jpeg",
-        animation: "fade-in",
-        progress: 100,
-        notes: [
-            "Kỷ luật là cầu nối giữa ước mơ và hiện thực."
-        ]
-    },
-    {
-          id: 13,
-        title: "Người Nam Châm",
-        skill: "Luật hấp dẫn & Tư duy tích cực",
-        color: "from-indigo-200 to-blue-200",
-        image: "books/Screenshot 2025-08-15 155526.png",
-        animation: "fade-in",
-        progress: 100,
-        notes: [
-            "Bạn không thu hút điều bạn muốn - bạn thu hút điều bạn tin mình xứng đáng.",
-            "Năng lượng tích cực là thỏi nam châm mạnh nhất vũ trụ – hãy sạc đầy nó mỗi ngày."
-        ]
-    },
-    {
-          id: 14,
-        title: "38 Bức Thư Rockefeller Gửi Cho Con Trai",
-        skill: "Tầm nhìn, kỷ luật thép và tư duy doanh ",
-        color: "from-indigo-200 to-blue-200",
-        image: "books/38 la thu.png",
-        animation: "fade-in",
-        progress: 100,
-        notes: [
-            "Thành công bắt đầu từ thói quen nhỏ: đúng giờ, giữ lời, và luôn học hỏi kẻ thù.",
-            "Kẻ mạnh không sợ thất bại - họ sợ sự tự mãn sau chiến thắng."
-        ]
-    },
-    {
-          id: 15,
-        title: "Cây cam ngọt của tôi",
-        skill: "Tiểu thuyết văn học • Tự sự • Hồi ký tuổi thơ",
-        color: "from-indigo-200 to-blue-200",
-        image: "books/Screenshot 2025-08-15 160216.png",
-        animation: "fade-in",
-        progress: 100,
-        notes: [
-             "🌳 Đôi khi, những điều bé nhỏ nhất – một cái cây, một người bạn – lại dạy ta bài học lớn nhất về tình yêu và nỗi đau.",
-             "🍊 Trái tim trẻ thơ như trái cam ngọt: có vị ngọt của hy vọng, nhưng cũng ẩn chút chua chát của cuộc đời."
-        ]
-    }
-    
-];
+import { books } from '../data/bookjourney.data/bookjourney.data';
+import { Flex, Progress } from 'antd';
+
 const BookJourneyDiary = () => {
     const [current, setCurrent] = useState(0);
     const book = books[current];
@@ -233,7 +48,7 @@ const BookJourneyDiary = () => {
                 </div>
                 <div className="row">
                     <div className={`mx-auto ${responsive.mobile?"col-12":"col-9"}`}>
-                        <div className={`min-vh-100 mw-100 ${responsive.mobile?"p-0 pt-4 pb-4":"p-4"} d-flex flex-column align-items-center justify-content-start border-start border-end border-black`}>
+                        <div className={`min-vh-100 mw-100 ${responsive.mobile?"p-0 pt-4 pb-4":"p-4"} ${responsive.mobile?"justify-content-center":"justify-content-start"} d-flex flex-column align-items-center border-start border-end border-black`}>
                             <motion.div
                                 key={book.id}
                                 initial={{ opacity: 0, x: 50 }}
@@ -272,8 +87,15 @@ const BookJourneyDiary = () => {
                                 </div>
 
                                 <div className="d-flex justify-content-between align-items-center mt-4">
-                                    <div className="fs-5 d-flex align-items-center gap-2">
-                                        <BookmarkCheck className="w-4 h-4" /> Đã đọc: {book.progress}%
+                                    <div className="fs-5 d-flex align-items-center justify-content-around gap-2">
+                                        <BookmarkCheck className="w-4 h-4" />
+                                          Đã đọc
+                                        {
+                                    !responsive.mobile ? 
+                                         <Flex gap="small" vertical style={{ width: 180 }}>
+                                         <Progress percent={book.progress} status={book.progress!==100&&"active"}/>
+                                            </Flex>:""
+                                        }
                                     </div>
                                     <div className="d-flex gap-2">
                                         <button onClick={() => {
@@ -283,6 +105,12 @@ const BookJourneyDiary = () => {
                                         <button onClick={() => setCurrent((current + 1) % books.length)} className='btn btn-outline-dark'> Tiếp ▶</button>
                                     </div>
                                 </div>
+                                {
+                                        responsive.mobile &&
+                                         <Flex gap="small" className='mt-3'>
+                                         <Progress percent={book.progress} status={book.progress!==100&&"active"}/>
+                                            </Flex>
+                                }
                             </motion.div>
                         </div>
                     </div>
