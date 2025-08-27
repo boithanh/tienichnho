@@ -36,7 +36,7 @@ export const books = [
         color: "from-indigo-200 to-blue-200",
         image: "books/CamScanner 20-8-25 11.39_1.JPG",
         animation: "fade-in",
-        progress: 42,
+        progress: 58,
         notes: [
            "Bạn không thể kiểm soát được số phận, nhưng chấc chắn có quyền lèo lái con thuyền cuộc đời mình"
         ],
