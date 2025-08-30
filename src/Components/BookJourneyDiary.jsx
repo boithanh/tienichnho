@@ -89,7 +89,7 @@ const BookJourneyDiary = () => {
                                 <div className="d-flex justify-content-between align-items-center mt-4">
                                     <div className="fs-5 d-flex align-items-center justify-content-around gap-2">
                                         <BookmarkCheck className="w-4 h-4" />
-                                          Đã đọc
+                                         {book.progress<100?"Đang đọc":"Đã đọc"}
                                         {
                                     !responsive.mobile ? 
                                          <Flex gap="small" vertical style={{ width: 180 }}>
