@@ -7,7 +7,7 @@ export const books = [
     {
         id: randomId(),
         title: "Sức mạnh của sự kiên trì",
-        skill: "Tâm Lý & Khoa Học Ứng Dụng",
+        subject: "Tâm Lý & Khoa Học Ứng Dụng",
         color: "from-yellow-200 to-pink-200",
         image: "books/CamScanner 13-8-25 20.09_1.jpeg",
         animation: "fade-in",
@@ -19,7 +19,7 @@ export const books = [
     {
         id: randomId(),
         title: "Lý thuyết trò chơi",
-        skill: "Tâm lý học",
+        subject: "Tâm lý học",
         color: "from-indigo-200 to-blue-200",
         image: "books/CamScanner 13-8-25 21.07_2.jpeg",
         animation: "fade-in",
@@ -32,7 +32,7 @@ export const books = [
     {
         id: randomId(),
         title: "Khóa học cấp tốc về tư bản và tiền bạc",
-        skill: "Tư duy tài chính",
+        subject: "Tư duy tài chính",
         color: "from-indigo-200 to-blue-200",
         image: "books/CamScanner 20-8-25 11.39_1.JPG",
         animation: "fade-in",
@@ -45,7 +45,7 @@ export const books = [
     {
         id: randomId(),
         title: "Bí Quyết Để Học Ít - Hiểu Nhiều - Nhớ Lâu - Hiệu Quả ",
-        skill: "Kỹ năng học thuật",
+        subject: "Kỹ năng học thuật",
         color: "from-indigo-200 to-blue-200",
         image: "books/CamScanner 13-8-25 20.57(1)_1.jpeg",
         animation: "fade-in",
@@ -57,7 +57,7 @@ export const books = [
     {
         id: randomId(),
         title: "Đắc nhân tâm",
-        skill: "Tâm Lý & Khoa Học Ứng Dụng",
+        subject: "Tâm Lý & Khoa Học Ứng Dụng",
         color: "from-indigo-200 to-blue-200",
         image: "books/CamScanner 13-8-25 20.56_1.jpeg",
         animation: "fade-in",
@@ -69,7 +69,7 @@ export const books = [
     {
         id: randomId(),
         title: "Khi ta thay đổi thế giới sẽ đổi thay",
-        skill: "Phát Triển Bản Thân & Tư Duy",
+        subject: "Phát Triển Bản Thân & Tư Duy",
         color: "from-indigo-200 to-blue-200",
         image: "books/CamScanner 13-8-25 20.55_1 2.jpeg",
         animation: "fade-in",
@@ -81,7 +81,7 @@ export const books = [
     {
         id:randomId(),
         title: "Mặc kệ thiên hạ - Sống như người Nhật",
-        skill: "Kỹ Năng Sống & Lối Sống",
+        subject: "Kỹ Năng Sống & Lối Sống",
         color: "from-indigo-200 to-blue-200",
         image: "books/CamScanner 13-8-25 20.25_1.jpeg",
         animation: "fade-in",
@@ -93,7 +93,7 @@ export const books = [
     {
         id: randomId(),
         title: "Tư duy mở",
-        skill: "Phát Triển Bản Thân & Tư Duy",
+        subject: "Phát Triển Bản Thân & Tư Duy",
         color: "from-indigo-200 to-blue-200",
         image: "books/CamScanner 13-8-25 20.22_1.jpeg",
         animation: "fade-in",
@@ -105,7 +105,7 @@ export const books = [
     {
         id: randomId(),
         title: "Nghệ Thuật từ chối",
-        skill: "Kỹ Năng Sống & Lối Sống",
+        subject: "Kỹ Năng Sống & Lối Sống",
         color: "from-indigo-200 to-blue-200",
         image: "books/CamScanner 13-8-25 20.21_1 2.jpeg",
         animation: "fade-in",
@@ -117,7 +117,7 @@ export const books = [
     {
         id: randomId(),
         title: "Bí Ẩn của sự may mắn",
-        skill: "Tâm Lý & Khoa Học Ứng Dụng",
+        subject: "Tâm Lý & Khoa Học Ứng Dụng",
         color: "from-indigo-200 to-blue-200",
         image: "books/CamScanner 13-8-25 20.19_1.jpeg",
         animation: "fade-in",
@@ -129,7 +129,7 @@ export const books = [
     {
         id: randomId(),
         title: "Gian Nan đừng vội nản",
-        skill: "Phát Triển Bản Thân & Tư Duy",
+        subject: "Phát Triển Bản Thân & Tư Duy",
         color: "from-indigo-200 to-blue-200",
         image: "books/CamScanner 13-8-25 20.17_1.jpeg",
         animation: "fade-in",
@@ -141,7 +141,7 @@ export const books = [
     {
         id: randomId(),
         title: "Nghệ thuật từ bỏ thói quen xấu",
-        skill: "Kỹ Năng Sống & Lối Sống",
+        subject: "Kỹ Năng Sống & Lối Sống",
         color: "from-indigo-200 to-blue-200",
         image: "books/CamScanner 13-8-25 20.15(1)_1.jpeg",
         animation: "fade-in",
@@ -153,7 +153,7 @@ export const books = [
     {
         id: randomId(),
         title: "Sức Mạnh Của Sự Kỷ Luật",
-        skill: "Tâm Lý & Khoa Học Ứng Dụng",
+        subject: "Tâm Lý & Khoa Học Ứng Dụng",
         color: "from-indigo-200 to-blue-200",
         image: "books/CamScanner 13-8-25 20.14_1.jpeg",
         animation: "fade-in",
@@ -165,7 +165,7 @@ export const books = [
     {
           id: randomId(),
         title: "Người Nam Châm",
-        skill: "Luật hấp dẫn & Tư duy tích cực",
+        subject: "Luật hấp dẫn & Tư duy tích cực",
         color: "from-indigo-200 to-blue-200",
         image: "books/Screenshot 2025-08-15 155526.png",
         animation: "fade-in",
@@ -178,7 +178,7 @@ export const books = [
     {
           id: randomId(),
         title: "38 Bức Thư Rockefeller Gửi Cho Con Trai",
-        skill: "Tầm nhìn, kỷ luật thép và tư duy doanh ",
+        subject: "Tầm nhìn, kỷ luật thép và tư duy doanh ",
         color: "from-indigo-200 to-blue-200",
         image: "books/38 la thu.png",
         animation: "fade-in",
@@ -191,7 +191,7 @@ export const books = [
     {
           id: randomId(),
         title: "Cây cam ngọt của tôi",
-        skill: "Tiểu thuyết văn học • Tự sự • Hồi ký tuổi thơ",
+        subject: "Tiểu thuyết văn học • Tự sự • Hồi ký tuổi thơ",
         color: "from-indigo-200 to-blue-200",
         image: "books/Screenshot 2025-08-15 160216.png",
         animation: "fade-in",
