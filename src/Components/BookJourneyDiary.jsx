@@ -11,7 +11,7 @@ import axios from 'axios';
 const BookJourneyDiary = () => {
     const http=axios.create({
         baseURL:"https://movieservice-oeai.onrender.com/tinytools/",
-        timeout:8000
+        timeout:20000
     })
     const [current, setCurrent] = useState(0);
     const [books,setBooks]=useState([]);
@@ -103,7 +103,9 @@ const fetchBooks = async () => {
                                 <div className="d-flex justify-content-between align-items-center mt-4">
                                     <div className="fs-5 d-flex align-items-center justify-content-around gap-2">
                                         <BookmarkCheck className="w-4 h-4" />
-                                         {book?.progress<100?"Đang đọc":"Đã đọc"}
+                                         {book?.progress<100 && book?.progress>0 ? "Đang đọc" :
+                                         book?.progress===0 ? "Chưa đọc" :
+                                         "Đã đọc"}
                                         {
                                     !responsive.mobile ? 
                                          <Flex gap="small" vertical style={{ width: 180 }}>
