@@ -16,7 +16,6 @@ const FullPageTemplate = () => {
     }, []); // Dependency array rỗng -> không chạy lại khi nhập input
 
     const fetchOnePair = () => {
-        try {
             return axios({
                 method: 'post',
                 url: 'https://colomind-server-workers.boithanh01694.workers.dev/api/colors', //Do colomind ko có https ko gọi trực tiếp để fetch API đc nên phải gọi trung gian qua worker 
@@ -24,10 +23,7 @@ const FullPageTemplate = () => {
             }).then((res) => res.data.result).catch((err) => {
                 console.log("Có gì đó không ổn xảy ra, vui lòng thử lại", err);
                 return [[0, 0, 0], [255, 255, 255]];
-            })
-        } catch (err) {
-            console.log("err with technical");
-        }
+            });
     }
     const fetchManyPair = async () => {
         let promises = Array.from({ length: arrNavlink.length }, () => fetchOnePair())

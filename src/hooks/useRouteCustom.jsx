@@ -1,27 +1,24 @@
 import React, { Suspense } from 'react'
 import { useRoutes } from 'react-router-dom'
-import HomeTemplate from '../template/HomeTemplate/HomeTemplate'
 import PageNotFound from '../Components/PageNotFound/PageNotFound'
-// import BloodPressure from '../Components/BloodPressure'
 const BloodPressure = React.lazy(() => import('../Components/BloodPressure'))
 import { path } from '../common/path'
 import DefaultLottery from '../Components/DefaultLottery'
 import { Skeleton } from 'antd'
 import MegaRandom from '../Components/MegaRandom'
 import PowerRandom from '../Components/PowerRandom'
-import Carousel from '../Components/Carousel'
 import LacXiNgau from '../Components/LacXiNgau'
-import FullPageTemplate from '../template/FullPageTemplate/FullPageTemplate'
+const FullPageTemplate=React.lazy(()=>import('../template/FullPageTemplate/FullPageTemplate'))
 import MegaRandomCustom from '../Components/MegaRandomCustom'
-import SoThienThan from '../Components/SoThienThan'
-import BookJourneyDiary from '../Components/BookJourneyDiary'
+const SoThienThan=React.lazy(()=>import('../Components/SoThienThan'))
+const BookJourneyDiary=React.lazy(()=>import('../Components/BookJourneyDiary'))
 
 const useRouteCustom = () => {
 
     const elements = useRoutes([
         {
             path: path.homePage,
-            element: <FullPageTemplate />,
+            element: <Suspense fallback={<Skeleton active paragraph={{ rows: 30 }} />}><FullPageTemplate /></Suspense>
         },
         {
             path: path.randomDefaultLottery,
@@ -53,7 +50,7 @@ const useRouteCustom = () => {
         },
         {
             path: path.bookJourneyDiary,
-            element: <BookJourneyDiary />
+            element: <Suspense fallback={<Skeleton active paragraph={{ rows: 30 }} />}><BookJourneyDiary /></Suspense>
         },
         {
             path: "*",

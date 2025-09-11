@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { BookOpen, BookmarkCheck } from "lucide-react";
 import useResponsive from '../hooks/useResponsive';
 import Breadcrumb from './Breadcrumb/Breadcrumb';
-import { books } from '../data/bookjourney.data/bookjourney.data';
+import { Skeleton } from 'antd';
 import { Flex, Progress } from 'antd';
 import axios from 'axios';
 
@@ -16,6 +16,7 @@ const BookJourneyDiary = () => {
     const [current, setCurrent] = useState(0);
     const [books,setBooks]=useState([]);
     const book = books[current];
+    const [loading,setLoading]=useState(true);
   
     const responsive = useResponsive({
         tiny: 350,
@@ -26,17 +27,7 @@ const BookJourneyDiary = () => {
 
 
     useEffect( () => {
-  console.log("useEffect mounted"); // check có chạy không
-const fetchBooks = async () => {
-    console.log("fetchBooks called"); // check có vào hàm không
-    try {
-      const res = await http.get("/books");
-     setBooks(res.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  fetchBooks();
+  http.get("/books").then((res)=>{setBooks(res.data)}).catch((err)=>console.log(err)).finally(()=>setLoading(false));
   }, []);
 
     return (
@@ -63,7 +54,12 @@ const fetchBooks = async () => {
                 <div className="row">
                     <div className={`mx-auto ${responsive.mobile?"col-12":"col-9"}`}>
                         <div className={`min-vh-100 mw-100 ${responsive.mobile?"p-0 pt-4 pb-4":"p-4"} ${responsive.mobile?"justify-content-center":"justify-content-start"} d-flex flex-column align-items-center border-start border-end border-black`}>
-                            <motion.div
+                            {
+                                loading ?
+                                (<Skeleton active paragraph={{ rows: 4 }} />) :
+
+                                (
+                                     <motion.div
                                 key={book?.id}
                                 initial={{ opacity: 0, x: 50 }}
                                 animate={{ opacity: 1, x: 0 }}
@@ -128,6 +124,8 @@ const fetchBooks = async () => {
                                             </Flex>
                                 }
                             </motion.div>
+                                )
+                            }                           
                         </div>
                     </div>
                 </div>
