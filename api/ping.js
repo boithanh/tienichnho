@@ -1,16 +1,18 @@
-export default async function handler(req, res) {
-  try {
-    const r = await fetch("https://your-render-app.onrender.com/books");
-    const data = await r.json();
-    return res.status(200).json({
+export const config = {
+  runtime: "edge",
+};
+
+export default async function handler(req) {
+  return new Response(
+    JSON.stringify({
       ok: true,
-      time: Date.now(),
-      count: data.length
-    });
-  } catch (err) {
-    return res.status(500).json({
-      ok: false,
-      error: err.message
-    });
-  }
+      message: "pong",
+      time: new Date().toISOString(),
+    }),
+    {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    }
+  );
 }
+
