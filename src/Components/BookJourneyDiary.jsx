@@ -114,13 +114,13 @@ const BookJourneyDiary = () => {
                                             setCurrent((current - 1 + books?.length) % books?.length)
                                         }
                                     } className='btn btn-outline-dark'>◀ Trước</button>
-                                        <button onClick={() => setCurrent((current + 1) % books.length)} className='btn btn-outline-dark'> Tiếp ▶</button>
+                                        <button onClick={() => setCurrent((current + 1) % books?.length)} className='btn btn-outline-dark'> Tiếp ▶</button>
                                     </div>
                                 </div>
                                 {
                                         responsive.mobile &&
                                          <Flex gap="small" className='mt-3'>
-                                         <Progress percent={book.progress} status={book.progress!==100&&"active"}/>
+                                         <Progress percent={book?.progress} status={book?.progress!==100&&"active"}/>
                                             </Flex>
                                 }
                             </motion.div>
